@@ -9,6 +9,8 @@
 
   <link rel="stylesheet" href="./styleCalc.css">
 
+  <script src="./APIs/html2canvas.js" defer></script>
+  <script src="./APIs/disintegrate.js" defer></script>
   <script src="appCalc.js" defer></script>
 
 </head>
@@ -16,20 +18,46 @@
 <body>
 
   <div class="containerDiv">
-    <div class="animationBody">
+    <div class="animationBody" data-dis-type="simultaneous" id='diss'>
       <div class="upperLeftBorder"></div>
       <div class="upperRightBorder"></div>
-      <div class="lowerRightBorder"></div>
       <div class="lowerLeftBorder"></div>
+      <div class="lowerRightBorder"></div>
     </div>
-    <div class="calculatorBody">
+    <div class="calculatorBody" data-dis-type="simultaneous" id='diss2'>
       <div class="display">
-        <div class="result"></div>
-        <div class="digitDisplay"></div>
+        <div class="result"><p>1131141414</p></div>
+        <div class="digitDisplay"><p>1+3+4</p></div>
       </div>
       <div class="digits">
-        
+        <button class="nrOne">1</button>
+        <button class="nrTwo">2</button>
+        <button class="nrThree">3</button>
+        <button class="syPlus">+</button>
+        <button class="nrFour">4</button>
+        <button class="nrFive">5</button>
+        <button class="nrSix">6</button>
+        <button class="syMinus">-</button>
+        <button class="nrSeven">7</button>
+        <button class="nrEight">8</button>
+        <button class="nrNine">9</button>
+        <button class="syMultiply">*</button>
+        <button class="clearDisplay">C</button>
+        <button class="nrZero">0</button>
+        <button class="backspaceDelete">DEL</button>
+        <button class="syDivide">/</button>
       </div>
+      <div class="enterResult">
+        <button class="enterKey">=</button>
+      </div>
+    </div>
+    <div class="userOptions">
+      <div class="upsizeC"></div>
+      <div class="downsizeC"></div>
+      <div class="randomColorCalcOutline"></div>
+      <div class="disintegrateCalc"></div>
+      <div class="newCalc"></div>
+      <div class="powerUpCalc"></div>
     </div>
   </div>
 
