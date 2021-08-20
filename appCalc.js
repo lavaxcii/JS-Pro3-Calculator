@@ -1,17 +1,18 @@
 // * START
 // dissapear in pieces effect (html2canvas + disintegrate)
+
 disintegrate.init();
-
-document.getElementById('diss').addEventListener('click', e => {
-  const disObj = disintegrate.getDisObj(e.target);
+function boom() {
+  const aBody = document.querySelector('.animationBody');
+  const disObj = disintegrate.getDisObj(aBody);
   disintegrate.createSimultaneousParticles(disObj);
-  e.target.remove();
-});
-
-document.getElementById('diss2').addEventListener('click', e => {
-  const disObj = disintegrate.getDisObj(e.target);
-  disintegrate.createSimultaneousParticles(disObj);
-  e.target.remove();
-});
+  const cBody = document.querySelector('.calculatorBody');
+  const disObj2 = disintegrate.getDisObj(cBody);
+  disintegrate.createSimultaneousParticles(disObj2);
+  aBody.remove();
+  cBody.remove();
+};
 
 // * END
+
+document.querySelector('.dissCalc').addEventListener('click', boom); 
