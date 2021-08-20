@@ -25,17 +25,10 @@ body {
   align-self: center;  
   align-content: stretch;
   grid-template-columns: repeat(2, 1fr);
-  max-height: 77vh;
-  max-width: 56vw;
-  min-height: 77vh;
-  min-width: 56vw;
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-  height: 300px;
-  width: 300px; */
+  max-height: 560px;
+  max-width: 535px;
+  min-height: 560px;
+  min-width: 535px;
   border: 5px outset black;
   margin: 0;
 }
@@ -73,14 +66,10 @@ body {
   align-items: stretch;
   align-self: center;  
   align-content: stretch;
-  max-height: 74vh;
-  max-width: 54vw;
-  min-height: 74vh;
-  min-width: 54vw;
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row; */
+  max-height: 545px;
+  max-width: 510px;
+  min-height: 545px;
+  min-width: 510px;
   border: 2px solid black;
   opacity: 100%;
   position: absolute;
@@ -96,8 +85,6 @@ body {
   grid-template-columns: repeat(1, 1fr);
   border: 5px solid black;
   margin: 0;
-  min-height: 14vh;
-  min-width: 14vw;
 }
 
 .result,
@@ -129,10 +116,10 @@ p {
   align-content: stretch;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px 8px;
-  max-height: 44vh;
-  max-width: 54vw;
-  min-height: 44vh;
-  min-width: 54vw;
+  max-height: 320px;
+  max-width: 510px;
+  min-height: 320px;
+  min-width: 510px;
   border: 5px solid black;
   margin: 0;
 }
@@ -140,7 +127,7 @@ p {
 .enterResult {
   padding: 0;
   margin: 0;
-  min-height: 9vh;
+  min-height: 70px;
 }
 
 .enterKey {
@@ -168,7 +155,7 @@ button {
   max-width: 100px;
   min-height: 300px;
   min-width: 100px;
-  left: 78vw;
+  right: 0vw;
   border: 4px solid powderblue;
 }
 
@@ -181,19 +168,6 @@ button {
   opacity: 50%;
   border: 5px outset blueviolet;
 }
-
-/* .xAxis {
-  display: grid;
-  justify-content: center;
-  align-items: stretch;
-  align-self: stretch;  
-  align-content: stretch;
-  max-height: 75vh;
-  max-width: 75vw;
-  min-height: 75vh;
-  min-width: 75vw;
-  grid-template-columns: repeat(auto-fill, minmax(0px, 0fr));
-} */
 
 .highlight {
   border: outset 3px rgb(229, 255, 0);
