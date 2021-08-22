@@ -18,16 +18,16 @@
 <body>
 
   <div class="containerDiv">
-    <div class="animationBody" data-dis-type="simultaneous">
+    <div class="animationBody" data-dis-type="simultaneous" data-dis-particle-type="ExplodingParticle" data-dis-reduction-factor="95">
       <div class="upperLeftBorder"></div>
       <div class="upperRightBorder"></div>
       <div class="lowerLeftBorder"></div>
       <div class="lowerRightBorder"></div>
     </div>
-    <div class="calculatorBody" data-dis-type="simultaneous">
+    <div class="calculatorBody" data-dis-type="simultaneous" data-dis-particle-type="ExplodingParticle" data-dis-reduction-factor="95">
       <div class="display">
-        <div class="result"><p>1131141414</p></div>
-        <div class="digitDisplay"><p>1+3+4</p></div>
+        <div class="result"><p id='pResult'>1131141414</p></div>
+        <div class="digitDisplay"><p id='pDisplay'>1+3+4</p></div>
       </div>
       <div class="digits">
         <button class="nrOne">1</button>
@@ -52,11 +52,11 @@
       </div>
     </div>
     <div class="userOptions">
-      <div class="upsizeC"></div>
-      <div class="downsizeC"></div>
+      <div class="upsizeC"><button class="upszC">BIGGER</button></div>
+      <div class="downsizeC"><button class="dwnszC">SMALLER</button></div>
       <div class="randomColorCalcOutline"></div>
       <div class="disintegrateCalc"><button class="dissCalc">BOOM</button></div>
-      <div class="newCalc"></div>
+      <div class="newCalc"><button class="nC">REBORN</button></div>
       <div class="powerUpCalc"></div>
     </div>
     <div class="userOptions2">
