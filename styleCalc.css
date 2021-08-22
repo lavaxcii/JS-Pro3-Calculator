@@ -91,10 +91,12 @@ body {
 
 .result {
   font-size: 0.9rem;
+  border-bottom: none;
 }
 
 .digitDisplay {
   font-size: 1.4rem;
+  border-top: none;
 }
 
 p {
@@ -143,6 +145,8 @@ p {
 button {
   border: 5px outset black;
   font-size: 1.4rem;
+  background-color: white;
+  transition: 1s ease;
 }
 
 .userOptions {

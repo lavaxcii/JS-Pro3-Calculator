@@ -36,7 +36,9 @@ document.querySelector('.upszC').addEventListener('click', () => {
   const dBody = document.querySelector('.digits');
   console.log(`When UPSIZING: ${aBody.offsetHeight}`);
   if (aBody.offsetHeight > 360) {
-    if (aBody.offsetHeight > 540) {
+    if (aBody.offsetHeight > 510) {
+      document.querySelector('#pResult').style.fontSize = '1.5rem';
+      document.querySelector('#pDisplay').style.fontSize = '2rem';
       return;
     };
     document.querySelector('#pResult').style.marginTop = '13px';
@@ -44,8 +46,15 @@ document.querySelector('.upszC').addEventListener('click', () => {
     document.querySelector('#pDisplay').style.marginTop = '21px';
     document.querySelector('#pDisplay').style.marginBottom = '21px';
     document.querySelector('.digits').style.marginBottom = '35px';
-    if (aBody.offsetHeight > 370) {
-    document.querySelector('.digits').style.marginBottom = '0px';
+    if (aBody.offsetHeight > 400) {
+      document.querySelector('.digits').style.marginBottom = '0px';
+      document.querySelector('#pResult').style.fontSize = '1.3rem';
+      document.querySelector('#pDisplay').style.fontSize = '1.8rem';
+      document.querySelectorAll('button').forEach((button) => {
+        if (button.classList.contains('digitsOnly')) {
+          button.style.fontSize = '1.8rem';
+        };
+      });
     };
   };
   let aBmh = aBody.offsetHeight;
@@ -70,7 +79,7 @@ document.querySelector('.dwnszC').addEventListener('click', () => {
   const cBody = document.querySelector('.calculatorBody');
   const dBody = document.querySelector('.digits');
   console.log(`When DOWNSIZING: ${aBody.offsetHeight}`);
-  if (aBody.offsetHeight < 430) {
+  if (aBody.offsetHeight < 450) {
     if (aBody.offsetHeight < 380) {
       return;
     };    
@@ -79,9 +88,16 @@ document.querySelector('.dwnszC').addEventListener('click', () => {
     document.querySelector('#pDisplay').style.marginTop = '3px';
     document.querySelector('#pDisplay').style.marginBottom = '3px';
     document.querySelector('.digits').style.marginBottom = '55px';
-    if (aBody.offsetHeight < 400) {
+    if (aBody.offsetHeight < 480) {
     document.querySelector('.digits').style.marginBottom = '75px';
     };
+    document.querySelector('#pResult').style.fontSize = '0.9rem';
+    document.querySelector('#pDisplay').style.fontSize = '1.4rem';
+    document.querySelectorAll('button').forEach((button) => {
+      if (button.classList.contains('digitsOnly')) {
+        button.style.fontSize = '1.4rem';
+      };
+    });
   };
   
   let aBmh = aBody.offsetHeight;
@@ -100,3 +116,6 @@ document.querySelector('.dwnszC').addEventListener('click', () => {
 
 });
 
+// rnd calc outline
+
+// power up calc
