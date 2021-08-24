@@ -24,6 +24,9 @@ document.querySelector('.nC').addEventListener('click', () => {
   const aBody = document.querySelector('.animationBody');
   const cBody = document.querySelector('.calculatorBody');
   const containerDiv = document.querySelector('.containerDiv');
+  if (aBody.classList.contains('powerOnC')) {
+    aBody.style.boxShadow = '0px 0px 100px 5px yellow';
+  };
   aBody.style.opacity = '100%';
   cBody.style.opacity = '100%';
   containerDiv.style.backgroundColor = 'yellowgreen';
@@ -118,4 +121,55 @@ document.querySelector('.dwnszC').addEventListener('click', () => {
 
 // rnd calc outline
 
-// power up calc
+// power up calc (= outline calc in radiant yellow and enable calc functionality)
+const upperLeftBorder = document.querySelector('.upperLeftBorder');
+const upperRightBorder = document.querySelector('.upperRightBorder');
+const lowerLeftBorder = document.querySelector('.lowerLeftBorder');
+const lowerRightBorder = document.querySelector('.lowerRightBorder');
+const aBody = document.querySelector('.animationBody');
+
+function powerOn() {
+  upperLeftBorder.style.borderTop = '10px solid yellow';
+  upperLeftBorder.addEventListener('transitionend', () => {
+    upperRightBorder.style.borderTop = '10px solid yellow'; 
+    upperRightBorder.addEventListener('transitionend', () => {
+      upperRightBorder.style.borderRight = '10px solid yellow';
+      upperRightBorder.addEventListener('transitionend', () => {
+        lowerRightBorder.style.borderRight = '10px solid yellow';
+        lowerRightBorder.addEventListener('transitionend', () => {
+          lowerRightBorder.style.borderBottom = '10px solid yellow';
+          lowerRightBorder.addEventListener('transitionend', () => {
+            lowerLeftBorder.style.borderBottom = '10px solid yellow';
+            aBody.style.boxShadow = '0px 0px 100px 5px yellow';
+            aBody.classList.add('powerOnC');
+          });
+        });
+      });
+    });
+  });
+};
+
+document.querySelector('.powerUpCalc2').addEventListener('click', powerOn);
+
+function powerOff() {
+  upperLeftBorder.style.borderTop = '10px solid gray';
+  upperLeftBorder.addEventListener('transitionend', () => {
+    upperRightBorder.style.borderTop = '10px solid gray';
+    upperRightBorder.addEventListener('transitionend', () => {
+      upperRightBorder.style.borderRight = '10px solid gray';
+      upperRightBorder.addEventListener('transitionend', () => {
+        lowerRightBorder.style.borderRight = '10px solid gray';
+        lowerRightBorder.addEventListener('transitionend', () => {
+          lowerRightBorder.style.borderBottom = '10px solid gray';
+          lowerRightBorder.addEventListener('transitionend', () => {
+            lowerLeftBorder.style.borderBottom = '10px solid gray';
+            aBody.classList.remove('powerOnC');
+            aBody.style.boxShadow = 'none';
+          });
+        });
+      });
+    });
+  });
+};
+
+document.querySelector('.powerOffCalc').addEventListener('click', powerOff);

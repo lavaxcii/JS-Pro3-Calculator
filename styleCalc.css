@@ -15,6 +15,9 @@ body {
   flex-direction: row;
   margin-top: 20vh;
   background-color: yellowgreen;
+  border: 0;
+  padding: 0;
+  transition: 1s ease;
 }
 
 .animationBody {
@@ -27,34 +30,35 @@ body {
   height: 457px;
   width: 430px;
   margin: 0;
-  transition: 0.5s ease;
+  transition: 1s ease;
 }
 
 .upperLeftBorder,
 .upperRightBorder,
 .lowerLeftBorder,
 .lowerRightBorder {
-  opacity: 50%;
+  opacity: 80%;
+  transition: 0.10s ease;
 }
 
 .upperLeftBorder {
-  border-top: 10px solid green;
-  border-left: 10px solid pink;
+  border-top: 10px solid gray;
+  border-left: 10px solid gray;
 }
 
 .upperRightBorder {
-  border-top: 10px solid mediumvioletred;
-  border-right: 10px solid darkorange;
+  border-top: 10px solid gray;
+  border-right: 10px solid gray;
 }
 
 .lowerLeftBorder {
-  border-bottom: 10px solid blue;
-  border-left: 10px solid yellow;
+  border-bottom: 10px solid gray;
+  border-left: 10px solid gray;
 }
 
 .lowerRightBorder {
   border-right: 10px solid gray;
-  border-bottom: 10px solid violet;
+  border-bottom: 10px solid gray;
 }
 
 .calculatorBody {
@@ -68,7 +72,7 @@ body {
   opacity: 100%;
   position: absolute;
   margin: 0;
-  transition: 0.5s ease;
+  transition: 1s ease;
 }
 
 .display {
@@ -126,7 +130,7 @@ p {
   height: 220px;
   width: 410px;
   margin: 0;
-  transition: 0.5s ease;
+  transition: 1s ease;
 }
 
 .enterResult {
@@ -200,12 +204,4 @@ button {
   min-width: 300px;
   border: 4px solid powderblue;
   top: 0.5vw;
-}
-
-
-
-.highlight {
-  border: outset 3px rgb(229, 255, 0);
-  box-shadow: 0px 0px 10px 5px rgba(229, 255, 0, 0.5);
-  transition: 1s ease 0s;
 }
