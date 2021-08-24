@@ -205,14 +205,14 @@ document.querySelector('.powerUpCalc2').addEventListener('click', powerOnOff);
 
 // background swap
 const bodyBody = document.querySelector('body');
-const gallery = ['/bImages/hand.png', '/bImages/forest.png', '/bImages/waterfall.png', '/bImages/traveler.png', ''];
+const gallery = ['./bImages/hand.png', './bImages/forest.png', './bImages/waterfall.png', './bImages/traveler.png', ''];
 let n = 0;
 
 document.querySelector('.pageBackgroundToggl').addEventListener('click', () => {
+  console.log(n);
   if (n >= 0) {
     bodyBody.style.backgroundImage = `url("${gallery[n]}"), linear-gradient(100deg, #555555, rgb(0, 0, 0))`;
-    n++;
-    console.log(n);
+    n++;    
     if (n === gallery.length) {
       n = 0;
     };
