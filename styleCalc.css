@@ -3,8 +3,13 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  background-image: linear-gradient(100deg, #919191, rgb(174, 174, 174));
+  background-image: linear-gradient(100deg, #555555, rgb(0, 0, 0));
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 50% 0%;
   margin: 0;
+  transition: 1s ease;
 }
 
 .containerDiv {
@@ -37,8 +42,8 @@ body {
 .upperRightBorder,
 .lowerLeftBorder,
 .lowerRightBorder {
-  opacity: 80%;
-  transition: 0.10s ease;
+  opacity: 60%;
+  transition: 0.5s ease;
 }
 
 .upperLeftBorder {

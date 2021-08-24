@@ -120,56 +120,101 @@ document.querySelector('.dwnszC').addEventListener('click', () => {
 });
 
 // rnd calc outline
-
-// power up calc (= outline calc in radiant yellow and enable calc functionality)
 const upperLeftBorder = document.querySelector('.upperLeftBorder');
 const upperRightBorder = document.querySelector('.upperRightBorder');
 const lowerLeftBorder = document.querySelector('.lowerLeftBorder');
 const lowerRightBorder = document.querySelector('.lowerRightBorder');
 const aBody = document.querySelector('.animationBody');
 
-function powerOn() {
-  upperLeftBorder.style.borderTop = '10px solid yellow';
-  upperLeftBorder.addEventListener('transitionend', () => {
-    upperRightBorder.style.borderTop = '10px solid yellow'; 
-    upperRightBorder.addEventListener('transitionend', () => {
-      upperRightBorder.style.borderRight = '10px solid yellow';
-      upperRightBorder.addEventListener('transitionend', () => {
-        lowerRightBorder.style.borderRight = '10px solid yellow';
-        lowerRightBorder.addEventListener('transitionend', () => {
-          lowerRightBorder.style.borderBottom = '10px solid yellow';
-          lowerRightBorder.addEventListener('transitionend', () => {
-            lowerLeftBorder.style.borderBottom = '10px solid yellow';
-            aBody.style.boxShadow = '0px 0px 100px 5px yellow';
-            aBody.classList.add('powerOnC');
-          });
-        });
-      });
-    });
-  });
+function rndCalcOutline() {
+  if (aBody.classList.contains('powerOnC')) {
+    function rgbRng() {
+      let randomRgbNr = Math.floor(Math.random() * 255) + 0;
+      return randomRgbNr;
+    };
+    let rgb1 = rgbRng();
+    let rgb2 = rgbRng();
+    let rgb3 = rgbRng();
+  
+    upperLeftBorder.style.borderTop = `10px solid rgb(${rgb1}, ${rgb2}, ${rgb3})`;
+    upperRightBorder.style.borderTop = `10px solid rgb(${rgb1}, ${rgb2}, ${rgb3})`; 
+    upperRightBorder.style.borderRight = `10px solid rgb(${rgb1}, ${rgb2}, ${rgb3})`;
+    lowerRightBorder.style.borderRight = `10px solid rgb(${rgb1}, ${rgb2}, ${rgb3})`;
+    lowerRightBorder.style.borderBottom = `10px solid rgb(${rgb1}, ${rgb2}, ${rgb3})`;
+    lowerLeftBorder.style.borderBottom = `10px solid rgb(${rgb1}, ${rgb2}, ${rgb3})`;
+    aBody.style.boxShadow = `0px 0px 100px 8px rgb(${rgb1}, ${rgb2}, ${rgb3}`;
+    return;
+  };
 };
 
-document.querySelector('.powerUpCalc2').addEventListener('click', powerOn);
+document.querySelector('.rndColorOutline').addEventListener('click', rndCalcOutline);
 
-function powerOff() {
-  upperLeftBorder.style.borderTop = '10px solid gray';
-  upperLeftBorder.addEventListener('transitionend', () => {
-    upperRightBorder.style.borderTop = '10px solid gray';
-    upperRightBorder.addEventListener('transitionend', () => {
-      upperRightBorder.style.borderRight = '10px solid gray';
-      upperRightBorder.addEventListener('transitionend', () => {
+// power up calc (= outline calc in radiant yellow and enable calc functionality)
+function powerOnOff() {
+  console.log(aBody.classList);
+  if (aBody.classList.contains('powerOnC')) {
+      setTimeout(() => {
+      upperLeftBorder.style.borderTop = '10px solid gray';
+      }, 100)
+      setTimeout(() => {
+        upperRightBorder.style.borderTop = '10px solid gray';
+      }, 200)
+      setTimeout(() => {
+        upperRightBorder.style.borderRight = '10px solid gray';
+      }, 400)
+      setTimeout(() => {
         lowerRightBorder.style.borderRight = '10px solid gray';
-        lowerRightBorder.addEventListener('transitionend', () => {
-          lowerRightBorder.style.borderBottom = '10px solid gray';
-          lowerRightBorder.addEventListener('transitionend', () => {
-            lowerLeftBorder.style.borderBottom = '10px solid gray';
-            aBody.classList.remove('powerOnC');
-            aBody.style.boxShadow = 'none';
-          });
-        });
-      });
-    });
-  });
+      }, 600)
+      setTimeout(() => {
+        lowerRightBorder.style.borderBottom = '10px solid gray';
+      }, 800)
+      setTimeout(() => {
+        lowerLeftBorder.style.borderBottom = '10px solid gray';
+      }, 1000)
+      setTimeout(() => {
+        aBody.classList.remove('powerOnC');
+        aBody.style.boxShadow = 'none';
+      }, 1200)
+  } else {
+    setTimeout(() => {
+      upperLeftBorder.style.borderTop = '10px solid yellow';
+      }, 100)
+      setTimeout(() => {
+        upperRightBorder.style.borderTop = '10px solid yellow';
+      }, 200)
+      setTimeout(() => {
+        upperRightBorder.style.borderRight = '10px solid yellow';
+      }, 400)
+      setTimeout(() => {
+        lowerRightBorder.style.borderRight = '10px solid yellow';
+      }, 600)
+      setTimeout(() => {
+        lowerRightBorder.style.borderBottom = '10px solid yellow';
+      }, 800)
+      setTimeout(() => {
+        lowerLeftBorder.style.borderBottom = '10px solid yellow';
+      }, 1000)
+      setTimeout(() => {
+        aBody.classList.add('powerOnC');
+        aBody.style.boxShadow = '0px 0px 100px 8px yellow';
+      }, 1200)
+  };
 };
 
-document.querySelector('.powerOffCalc').addEventListener('click', powerOff);
+document.querySelector('.powerUpCalc2').addEventListener('click', powerOnOff);
+
+// background swap
+const bodyBody = document.querySelector('body');
+const gallery = ['/bImages/hand.png', '/bImages/forest.png', '/bImages/waterfall.png', '/bImages/traveler.png', ''];
+let n = 0;
+
+document.querySelector('.pageBackgroundToggl').addEventListener('click', () => {
+  if (n >= 0) {
+    bodyBody.style.backgroundImage = `url("${gallery[n]}"), linear-gradient(100deg, #555555, rgb(0, 0, 0))`;
+    n++;
+    console.log(n);
+    if (n === gallery.length) {
+      n = 0;
+    };
+  };
+});
