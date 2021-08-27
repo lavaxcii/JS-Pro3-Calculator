@@ -5,7 +5,7 @@ function boom() {
   const aBody = document.querySelector('.animationBody');
   const cBody = document.querySelector('.calculatorBody');
   console.log(dBody.style.backgroundColor);
-  if (dBody.style.backgroundColor === 'inherit') {
+  if (dBody.style.backgroundImage === 'none') {
     return;
   };
   const disObj = disintegrate.getDisObj(aBody);
@@ -14,7 +14,7 @@ function boom() {
   disintegrate.createSimultaneousParticles(disObj2);
   aBody.style.opacity = '0%';
   cBody.style.opacity = '0%';
-  dBody.style.backgroundColor = 'inherit';
+  dBody.style.backgroundImage = 'none';
 };
 
 document.querySelector('.dissCalc').addEventListener('click', boom); 
@@ -29,7 +29,7 @@ document.querySelector('.nC').addEventListener('click', () => {
   };
   aBody.style.opacity = '100%';
   cBody.style.opacity = '100%';
-  containerDiv.style.backgroundColor = 'yellowgreen';
+  containerDiv.style.backgroundImage = 'linear-gradient(100deg, #555555, rgb(0, 0, 0))';
 });
 
 // upsize calc
@@ -125,6 +125,7 @@ const upperRightBorder = document.querySelector('.upperRightBorder');
 const lowerLeftBorder = document.querySelector('.lowerLeftBorder');
 const lowerRightBorder = document.querySelector('.lowerRightBorder');
 const aBody = document.querySelector('.animationBody');
+const display = document.querySelector('.display');
 
 function rndCalcOutline() {
   if (aBody.classList.contains('powerOnC')) {
@@ -174,6 +175,7 @@ function powerOnOff() {
       setTimeout(() => {
         aBody.classList.remove('powerOnC');
         aBody.style.boxShadow = 'none';
+        display.style.backgroundImage = 'linear-gradient(100deg, rgb(0, 0, 0), #000000)';
       }, 1200)
   } else {
     setTimeout(() => {
@@ -197,6 +199,7 @@ function powerOnOff() {
       setTimeout(() => {
         aBody.classList.add('powerOnC');
         aBody.style.boxShadow = '0px 0px 100px 8px yellow';
+        display.style.backgroundImage = 'linear-gradient(100deg, rgb(175, 175, 175), #ffffff)';
       }, 1200)
   };
 };
@@ -209,7 +212,6 @@ const gallery = ['./bImages/hand.png', './bImages/forest.png', './bImages/waterf
 let n = 0;
 
 document.querySelector('.pageBackgroundToggl').addEventListener('click', () => {
-  console.log(n);
   if (n >= 0) {
     bodyBody.style.backgroundImage = `url("${gallery[n]}"), linear-gradient(100deg, #555555, rgb(0, 0, 0))`;
     n++;    
@@ -218,3 +220,14 @@ document.querySelector('.pageBackgroundToggl').addEventListener('click', () => {
     };
   };
 });
+
+//change display font
+function fontSwap() {
+  if (display.style.fontFamily = 'Press Start 2P') {
+  display.style.fontFamily = 'Jura';
+  } else {
+    display.style.fontFamily = 'Press Start 2P';
+  };
+};
+
+document.querySelector('.fontChange').addEventListener('click', fontSwap);
