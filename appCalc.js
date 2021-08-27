@@ -126,6 +126,8 @@ const lowerLeftBorder = document.querySelector('.lowerLeftBorder');
 const lowerRightBorder = document.querySelector('.lowerRightBorder');
 const aBody = document.querySelector('.animationBody');
 const display = document.querySelector('.display');
+const powerUpSound = document.querySelector('.powerUpSound');
+const powerUpVoice = document.querySelector('.powerUpVoice');
 
 function rndCalcOutline() {
   if (aBody.classList.contains('powerOnC')) {
@@ -154,6 +156,7 @@ document.querySelector('.rndColorOutline').addEventListener('click', rndCalcOutl
 function powerOnOff() {
   console.log(aBody.classList);
   if (aBody.classList.contains('powerOnC')) {
+      powerUpSound.play();
       setTimeout(() => {
       upperLeftBorder.style.borderTop = '10px solid gray';
       }, 100)
@@ -178,6 +181,7 @@ function powerOnOff() {
         display.style.backgroundImage = 'linear-gradient(100deg, rgb(0, 0, 0), #000000)';
       }, 1200)
   } else {
+    powerUpSound.play();
     setTimeout(() => {
       upperLeftBorder.style.borderTop = '10px solid yellow';
       }, 100)
@@ -200,6 +204,7 @@ function powerOnOff() {
         aBody.classList.add('powerOnC');
         aBody.style.boxShadow = '0px 0px 100px 8px yellow';
         display.style.backgroundImage = 'linear-gradient(100deg, rgb(175, 175, 175), #ffffff)';
+        powerUpVoice.play();
       }, 1200)
   };
 };
@@ -231,3 +236,50 @@ function fontSwap() {
 };
 
 document.querySelector('.fontChange').addEventListener('click', fontSwap);
+
+// music feature
+const music = document.querySelectorAll('audio');
+const musicArr = Array.from(music);
+musicArr.splice(0, 2);
+musicArr.pop();
+console.log(musicArr.length);
+
+function playMusic() {
+  let c = 0;
+  document.querySelector('.previous').addEventListener('click', () => {
+    if (musicArr[c].paused === false) {
+      musicArr[c].pause();
+    };
+    if (c <= 0) {
+      c = musicArr.length - 1;
+    };
+    c--
+    musicArr[c].play();
+  });
+  document.querySelector('.next').addEventListener('click', () => {
+    if (musicArr[c].paused === false) {
+      musicArr[c].pause();
+    };
+    if (c >= musicArr.length - 1) {
+      c = 0;
+    };
+    c++
+    musicArr[c].play();
+  });
+  document.querySelector('.playStop').addEventListener('click', () => {
+    if (musicArr[c].paused === false) {
+      musicArr[c].pause();
+      return;
+    };
+    musicArr[c].play();
+    console.log(musicArr[c]);
+  });
+  document.querySelector('.random').addEventListener('click', () => {
+    if (musicArr[c].paused === false) {
+      musicArr[c].pause();
+    };
+    musicArr[Math.floor(Math.random() * 5) + 0].play();
+    
+  });
+};
+playMusic();

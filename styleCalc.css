@@ -172,6 +172,7 @@ button {
   font-size: 1.4rem;
   background-color: white;
   transition: 1s ease;
+  cursor: pointer;
 }
 
 .digitsOnly {
@@ -232,7 +233,7 @@ button {
   align-items: stretch;
   align-self: center;  
   align-content: stretch;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(1, 1fr);
   position: absolute;
   margin: 0;
@@ -240,6 +241,5 @@ button {
   max-width: 300px;
   min-height: 50px;
   min-width: 300px;
-  border: 4px solid powderblue;
-  top: 0.5vw;
+  top: 1.5vh;
 }
