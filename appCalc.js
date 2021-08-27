@@ -252,6 +252,8 @@ function playMusic() {
     };
     if (c <= 0) {
       c = musicArr.length - 1;
+      musicArr[c].play();
+      return;
     };
     c--
     musicArr[c].play();
@@ -262,6 +264,8 @@ function playMusic() {
     };
     if (c >= musicArr.length - 1) {
       c = 0;
+      musicArr[c].play();
+      return;
     };
     c++
     musicArr[c].play();
@@ -272,14 +276,15 @@ function playMusic() {
       return;
     };
     musicArr[c].play();
-    console.log(musicArr[c]);
   });
   document.querySelector('.random').addEventListener('click', () => {
     if (musicArr[c].paused === false) {
       musicArr[c].pause();
     };
-    musicArr[Math.floor(Math.random() * 5) + 0].play();
-    
+    do {
+      c = Math.floor(Math.random() * 5) + 0;
+    } while (c === Math.floor((Math.random() * 5) + 0));
+    musicArr[c].play();    
   });
 };
 playMusic();
