@@ -35,7 +35,7 @@ body {
   height: 457px;
   width: 430px;
   margin: 0;
-  transition: 1s ease;
+  transition: 1.5s ease;
 }
 
 .upperLeftBorder,

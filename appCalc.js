@@ -1,5 +1,7 @@
 // dissapear in pieces effect (html2canvas + disintegrate)
 disintegrate.init();
+let rndOutlineShadow = '';
+
 function boom() {
   const dBody = document.querySelector('.containerDiv');
   const aBody = document.querySelector('.animationBody');
@@ -25,7 +27,7 @@ document.querySelector('.nC').addEventListener('click', () => {
   const cBody = document.querySelector('.calculatorBody');
   const containerDiv = document.querySelector('.containerDiv');
   if (aBody.classList.contains('powerOnC')) {
-    aBody.style.boxShadow = '0px 0px 100px 5px yellow';
+    aBody.style.boxShadow = `${rndOutlineShadow}`;
   };
   aBody.style.opacity = '100%';
   cBody.style.opacity = '100%';
@@ -145,7 +147,8 @@ function rndCalcOutline() {
     lowerRightBorder.style.borderRight = `10px solid rgb(${rgb1}, ${rgb2}, ${rgb3})`;
     lowerRightBorder.style.borderBottom = `10px solid rgb(${rgb1}, ${rgb2}, ${rgb3})`;
     lowerLeftBorder.style.borderBottom = `10px solid rgb(${rgb1}, ${rgb2}, ${rgb3})`;
-    aBody.style.boxShadow = `0px 0px 100px 8px rgb(${rgb1}, ${rgb2}, ${rgb3}`;
+    aBody.style.boxShadow = `0px 0px 200px 1px rgb(${rgb1}, ${rgb2}, ${rgb3}`;
+    rndOutlineShadow = aBody.style.boxShadow;
     return;
   };
 };
@@ -202,10 +205,13 @@ function powerOnOff() {
       }, 1000)
       setTimeout(() => {
         aBody.classList.add('powerOnC');
-        aBody.style.boxShadow = '0px 0px 100px 8px yellow';
+        aBody.style.boxShadow = '0px 0px 80px 20px yellow';
         display.style.backgroundImage = 'linear-gradient(100deg, rgb(175, 175, 175), #ffffff)';
         powerUpVoice.play();
       }, 1200)
+      setTimeout(() => {
+        aBody.style.boxShadow = '0px 0px 20px 10px yellow';
+      }, 2000);
   };
 };
 
