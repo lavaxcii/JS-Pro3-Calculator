@@ -1,6 +1,7 @@
 // dissapear in pieces effect (html2canvas + disintegrate)
 disintegrate.init();
-let rndOutlineShadow = '';
+let rndOutlineShadow = '0px 0px 20px 10px yellow';
+const exploCrumble = document.querySelector('.exploCrumble');
 
 function boom() {
   const dBody = document.querySelector('.containerDiv');
@@ -10,6 +11,7 @@ function boom() {
   if (dBody.style.backgroundImage === 'none') {
     return;
   };
+  exploCrumble.play();
   const disObj = disintegrate.getDisObj(aBody);
   disintegrate.createSimultaneousParticles(disObj);
   const disObj2 = disintegrate.getDisObj(cBody);
@@ -21,7 +23,13 @@ function boom() {
 
 document.querySelector('.dissCalc').addEventListener('click', boom); 
 
+const ehem = document.querySelector('.ehem');
+document.querySelector('.dissCalc').addEventListener('mouseenter', () => {
+  ehem.play();
+});
+
 // calculator reappear
+const whistleReborn = document.querySelector('.whistleReborn');
 document.querySelector('.nC').addEventListener('click', () => {
   const aBody = document.querySelector('.animationBody');
   const cBody = document.querySelector('.calculatorBody');
@@ -29,12 +37,18 @@ document.querySelector('.nC').addEventListener('click', () => {
   if (aBody.classList.contains('powerOnC')) {
     aBody.style.boxShadow = `${rndOutlineShadow}`;
   };
+  if (aBody.style.opacity === '0') {
+    whistleReborn.play();
+  };
   aBody.style.opacity = '100%';
   cBody.style.opacity = '100%';
   containerDiv.style.backgroundImage = 'linear-gradient(100deg, #555555, rgb(0, 0, 0))';
 });
 
 // upsize calc
+const wDrop = document.querySelector('.wDrop');
+const yawn = document.querySelector('.yawn');
+const wow = document.querySelector('.wow');
 document.querySelector('.upszC').addEventListener('click', () => {
   const aBody = document.querySelector('.animationBody');
   const cBody = document.querySelector('.calculatorBody');
@@ -44,6 +58,7 @@ document.querySelector('.upszC').addEventListener('click', () => {
     if (aBody.offsetHeight > 510) {
       document.querySelector('#pResult').style.fontSize = '1.5rem';
       document.querySelector('#pDisplay').style.fontSize = '2rem';
+      wow.play();
       return;
     };
     document.querySelector('#pResult').style.marginTop = '13px';
@@ -76,6 +91,7 @@ document.querySelector('.upszC').addEventListener('click', () => {
   dBody.style.height = `${dBmh+30}px`;
   dBody.style.width = `${dBmw+30}px`;
 
+  wDrop.play();
 });
 
 // downsize calc
@@ -86,6 +102,7 @@ document.querySelector('.dwnszC').addEventListener('click', () => {
   console.log(`When DOWNSIZING: ${aBody.offsetHeight}`);
   if (aBody.offsetHeight < 450) {
     if (aBody.offsetHeight < 380) {
+      yawn.play();
       return;
     };    
     document.querySelector('#pResult').style.marginTop = '3px';
@@ -119,6 +136,7 @@ document.querySelector('.dwnszC').addEventListener('click', () => {
   dBody.style.height = `${dBmh-30}px`;
   dBody.style.width = `${dBmw-30}px`;
 
+  wDrop.play();
 });
 
 // rnd calc outline
@@ -130,6 +148,7 @@ const aBody = document.querySelector('.animationBody');
 const display = document.querySelector('.display');
 const powerUpSound = document.querySelector('.powerUpSound');
 const powerUpVoice = document.querySelector('.powerUpVoice');
+const cDrop = document.querySelector('.cDrop');
 
 function rndCalcOutline() {
   if (aBody.classList.contains('powerOnC')) {
@@ -140,7 +159,7 @@ function rndCalcOutline() {
     let rgb1 = rgbRng();
     let rgb2 = rgbRng();
     let rgb3 = rgbRng();
-  
+    cDrop.play();
     upperLeftBorder.style.borderTop = `10px solid rgb(${rgb1}, ${rgb2}, ${rgb3})`;
     upperRightBorder.style.borderTop = `10px solid rgb(${rgb1}, ${rgb2}, ${rgb3})`; 
     upperRightBorder.style.borderRight = `10px solid rgb(${rgb1}, ${rgb2}, ${rgb3})`;
@@ -158,7 +177,10 @@ document.querySelector('.rndColorOutline').addEventListener('click', rndCalcOutl
 // power up calc (= outline calc in radiant yellow and enable calc functionality)
 function powerOnOff() {
   console.log(aBody.classList);
-  if (aBody.classList.contains('powerOnC')) {
+  if (aBody.classList.contains('powerOnC')) { 
+      if (aBody.style.opacity === '0') {
+        return;
+      };   
       powerUpSound.play();
       setTimeout(() => {
       upperLeftBorder.style.borderTop = '10px solid gray';
@@ -184,6 +206,9 @@ function powerOnOff() {
         display.style.backgroundImage = 'linear-gradient(100deg, rgb(0, 0, 0), #000000)';
       }, 1200)
   } else {
+    if (aBody.style.opacity === '0') {
+      return;
+      };
     powerUpSound.play();
     setTimeout(() => {
       upperLeftBorder.style.borderTop = '10px solid yellow';
@@ -225,6 +250,7 @@ let n = 0;
 document.querySelector('.pageBackgroundToggl').addEventListener('click', () => {
   if (n >= 0) {
     bodyBody.style.backgroundImage = `url("${gallery[n]}"), linear-gradient(100deg, #555555, rgb(0, 0, 0))`;
+    cDrop.play();
     n++;    
     if (n === gallery.length) {
       n = 0;
@@ -236,8 +262,10 @@ document.querySelector('.pageBackgroundToggl').addEventListener('click', () => {
 function fontSwap() {
   if (display.style.fontFamily = 'Press Start 2P') {
   display.style.fontFamily = 'Jura';
+  cDrop.play();
   } else {
     display.style.fontFamily = 'Press Start 2P';
+    cDrop.play();
   };
 };
 
@@ -248,7 +276,6 @@ const music = document.querySelectorAll('audio');
 const musicArr = Array.from(music);
 musicArr.splice(0, 2);
 musicArr.pop();
-console.log(musicArr.length);
 
 function playMusic() {
   let c = 0;
