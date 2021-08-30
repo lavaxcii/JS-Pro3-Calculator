@@ -301,6 +301,17 @@ button {
   pointer-events: none;
 }
 
+@media screen and (min-width: 1600px) {
+  .playStop2 {
+    right: 240px;
+  }
+}
+@media screen and (min-width: 2000px) {
+  .playStop2 {
+    right: 246px;
+  }
+}
+
 .fa-caret-right,
 .fa-caret-left,
 .fa-play,
