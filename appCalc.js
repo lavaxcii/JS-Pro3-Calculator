@@ -2,8 +2,20 @@
 disintegrate.init();
 let rndOutlineShadow = '0px 0px 20px 10px yellow';
 const exploCrumble = document.querySelector('.exploCrumble');
+const dissCalcBtn = document.querySelector('.dissCalc');
 
 function boom() {
+  function scatterButtons() {
+    document.querySelectorAll('button').forEach((buttons) => {
+      if (buttons.classList.contains('digitsOnly')) {
+        buttons.style.translate = `0`;
+      } else {
+        let x = Math.floor(Math.random() * 200) - 100;;
+        let y = Math.floor(Math.random() * 200) - 100;;
+        buttons.style.translate = `${x}px ${y}px`;
+      };
+    });
+  };
   const dBody = document.querySelector('.containerDiv');
   const aBody = document.querySelector('.animationBody');
   const cBody = document.querySelector('.calculatorBody');
@@ -12,6 +24,7 @@ function boom() {
     return;
   };
   exploCrumble.play();
+  // scatterButtons();
   const disObj = disintegrate.getDisObj(aBody);
   disintegrate.createSimultaneousParticles(disObj);
   const disObj2 = disintegrate.getDisObj(cBody);
@@ -53,7 +66,9 @@ document.querySelector('.upszC').addEventListener('click', () => {
   const aBody = document.querySelector('.animationBody');
   const cBody = document.querySelector('.calculatorBody');
   const dBody = document.querySelector('.digits');
-  console.log(`When UPSIZING: ${aBody.offsetHeight}`);
+  if (aBody.style.opacity === '0') {
+    return;
+  }
   if (aBody.offsetHeight > 360) {
     if (aBody.offsetHeight > 510) {
       document.querySelector('#pResult').style.fontSize = '1.5rem';
@@ -99,7 +114,9 @@ document.querySelector('.dwnszC').addEventListener('click', () => {
   const aBody = document.querySelector('.animationBody');
   const cBody = document.querySelector('.calculatorBody');
   const dBody = document.querySelector('.digits');
-  console.log(`When DOWNSIZING: ${aBody.offsetHeight}`);
+  if (aBody.style.opacity === '0') {
+    return;
+  }
   if (aBody.offsetHeight < 450) {
     if (aBody.offsetHeight < 380) {
       yawn.play();
@@ -149,6 +166,24 @@ const display = document.querySelector('.display');
 const powerUpSound = document.querySelector('.powerUpSound');
 const powerUpVoice = document.querySelector('.powerUpVoice');
 const cDrop = document.querySelector('.cDrop');
+const buttonImage = document.querySelector('.fa-border-style');
+
+function rotateButtonImageColors() {
+  function rgbRng() {
+    let randomRgbNr = Math.floor(Math.random() * 255) + 0;
+    return randomRgbNr;
+  };
+  let rgb1 = rgbRng();
+  let rgb2 = rgbRng();
+  let rgb3 = rgbRng();
+  setTimeout(() => {
+    buttonImage.style.color = `rgb(${rgb1}, ${rgb2}, ${rgb3}`;
+  }, 1500);
+  setTimeout(() => {
+  rotateButtonImageColors();
+  }, 1500);
+}
+rotateButtonImageColors();
 
 function rndCalcOutline() {
   if (aBody.classList.contains('powerOnC')) {
@@ -175,6 +210,7 @@ function rndCalcOutline() {
 document.querySelector('.rndColorOutline').addEventListener('click', rndCalcOutline);
 
 // power up calc (= outline calc in radiant yellow and enable calc functionality)
+const powerOn = document.querySelector('.fa-power-off');
 function powerOnOff() {
   console.log(aBody.classList);
   if (aBody.classList.contains('powerOnC')) { 
@@ -182,8 +218,9 @@ function powerOnOff() {
         return;
       };   
       powerUpSound.play();
+      powerOn.style.color = 'green';
       setTimeout(() => {
-      upperLeftBorder.style.borderTop = '10px solid gray';
+      upperLeftBorder.style.borderTop = '10px solid gray';      
       }, 100)
       setTimeout(() => {
         upperRightBorder.style.borderTop = '10px solid gray';
@@ -210,8 +247,10 @@ function powerOnOff() {
       return;
       };
     powerUpSound.play();
+    powerOn.style.color = 'red';
     setTimeout(() => {
       upperLeftBorder.style.borderTop = '10px solid yellow';
+
       }, 100)
       setTimeout(() => {
         upperRightBorder.style.borderTop = '10px solid yellow';
@@ -274,10 +313,12 @@ document.querySelector('.fontChange').addEventListener('click', fontSwap);
 // music feature
 const music = document.querySelectorAll('audio');
 const musicArr = Array.from(music);
-musicArr.splice(0, 2);
-musicArr.pop();
+musicArr.splice(0, 11);
+console.log(musicArr);
 
 function playMusic() {
+  const pauseB = document.querySelector('.fa-pause');
+  const playB = document.querySelector('.fa-play');
   let c = 0;
   document.querySelector('.previous').addEventListener('click', () => {
     if (musicArr[c].paused === false) {
@@ -286,10 +327,14 @@ function playMusic() {
     if (c <= 0) {
       c = musicArr.length - 1;
       musicArr[c].play();
+      playB.style.opacity = '0%';
+      pauseB.style.opacity = '100%';
       return;
     };
     c--
     musicArr[c].play();
+    playB.style.opacity = '0%';
+    pauseB.style.opacity = '100%';
   });
   document.querySelector('.next').addEventListener('click', () => {
     if (musicArr[c].paused === false) {
@@ -298,26 +343,52 @@ function playMusic() {
     if (c >= musicArr.length - 1) {
       c = 0;
       musicArr[c].play();
+      playB.style.opacity = '0%';
+      pauseB.style.opacity = '100%';
       return;
     };
     c++
     musicArr[c].play();
+    playB.style.opacity = '0%';
+    pauseB.style.opacity = '100%';
   });
   document.querySelector('.playStop').addEventListener('click', () => {
     if (musicArr[c].paused === false) {
       musicArr[c].pause();
+      playB.style.opacity = '100%';
+      pauseB.style.opacity = '0%';
       return;
     };
     musicArr[c].play();
+    playB.style.opacity = '0%';
+    pauseB.style.opacity = '100%';
   });
   document.querySelector('.random').addEventListener('click', () => {
     if (musicArr[c].paused === false) {
       musicArr[c].pause();
+      playB.style.opacity = '100%';
+      pauseB.style.opacity = '0%';
     };
     do {
       c = Math.floor(Math.random() * 5) + 0;
     } while (c === Math.floor((Math.random() * 5) + 0));
-    musicArr[c].play();    
+    musicArr[c].play();
+    playB.style.opacity = '0%';
+    pauseB.style.opacity = '100%';    
   });
 };
 playMusic();
+
+/*
+//* FIRST SET OF DOs
+0 intro split screen?
+1 icons for user options
+2 icons for music player
+3 make buttons round and cozy for uo and mp
+  3.1 add color differentiation static, and when clicked
+4 make on click effect (da izgleda kao da si udubio dugme)
+5 polish music player logic (ima novih sfx i onda ne hvata muziku)
+//* SECOND SET OF DOs
+1 calculator logic
+*/
+

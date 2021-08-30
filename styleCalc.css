@@ -175,6 +175,8 @@ button {
   background-color: white;
   transition: 1s ease;
   cursor: pointer;
+  border-radius: 35px;
+  transition: 1s ease;
 }
 
 .digitsOnly {
@@ -204,29 +206,53 @@ button {
   grid-template-columns: repeat(1, 1fr);
   position: absolute;
   margin: 0;
-  max-height: 300px;
-  max-width: 100px;
-  min-height: 300px;
-  min-width: 100px;
-  top: 30vh;
+  top: 12vh;
   right: 1.5vw;
 }
 
-.upsizeC,
-.downsizeC,
-.randomColorCalcOutline,
-.disintegrateCalc,
+.upszC,
+.dwnszC,
+.rndColorOutline,
+.dissCalc,
 .newCalc,
-.powerUpCalc {
+.pageBackgroundToggl,
+.powerUpCalc2,
+.fontChange {
   display: grid;
   justify-content: center;
   align-items: stretch;
   align-self: center;  
   align-content: stretch;
-  opacity: 50%;
-  border: 5px outset blueviolet;
-  max-width: 100px;
-  min-width: 100px;
+  padding: 5px;
+  margin-bottom: 1vh;
+}
+
+.fa-bomb,
+.fa-buffer,
+.fa-border-style,
+.fa-font,
+.fa-power-off {
+  transition: 1s ease;
+  padding: 5px;
+  font-size: 2.0rem;
+}
+
+.fa-male {
+  font-size: 2.5rem;
+}
+
+.two {
+  padding: 10px;
+  font-size: 1.5rem;
+}
+
+.fa-baby {
+  padding: 10px;
+  font-size: 2.0rem;
+}
+
+.fa-power-off {
+  color: green;
 }
 
 .userOptions2 {
@@ -235,13 +261,61 @@ button {
   align-items: stretch;
   align-self: center;  
   align-content: stretch;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(1, 1fr);
   position: absolute;
   margin: 0;
-  max-height: 50px;
-  max-width: 300px;
-  min-height: 50px;
-  min-width: 300px;
   top: 1.5vh;
+  right: 200px;
+}
+
+@media screen and (min-width: 1000px) {
+  .userOptions2 {
+    right: 350px;
+  }
+}
+@media screen and (min-width: 1500px) {
+  .userOptions2 {
+    right: 550px;
+  }
+}
+@media screen and (min-width: 2000px) {
+  .userOptions2 {
+    right: 750px;
+  }
+}
+
+.previous,
+.playStop,
+.next,
+.random {
+  margin-right: 0.5vw;
+}
+
+.playStop2 {
+  background-color: transparent;
+  position: relative;
+  right: 231px;
+  top: 2px;
+  border: none;
+  pointer-events: none;
+}
+
+.fa-caret-right,
+.fa-caret-left,
+.fa-play,
+.fa-random {
+  padding: 10px;
+  font-size: 2.0rem;
+}
+
+.fa-play {
+  opacity: 100%;
+  transition: 0.5s ease;
+}
+
+.fa-pause {
+  font-size: 2.0rem;
+  opacity: 0;
+  transition: 0.5s ease;
 }
