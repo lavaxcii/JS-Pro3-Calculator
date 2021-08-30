@@ -187,6 +187,9 @@ rotateButtonImageColors();
 
 function rndCalcOutline() {
   if (aBody.classList.contains('powerOnC')) {
+    if (aBody.style.opacity === '0') {
+      return;
+    };
     function rgbRng() {
       let randomRgbNr = Math.floor(Math.random() * 255) + 0;
       return randomRgbNr;
@@ -382,12 +385,12 @@ playMusic();
 /*
 //* FIRST SET OF DOs
 0 intro split screen?
-1 icons for user options
-2 icons for music player
-3 make buttons round and cozy for uo and mp
-  3.1 add color differentiation static, and when clicked
-4 make on click effect (da izgleda kao da si udubio dugme)
-5 polish music player logic (ima novih sfx i onda ne hvata muziku)
+*1 icons for user options
+*2 icons for music player
+*3 make buttons round and cozy for uo and mp
+  *3.1 add color differentiation static, and when clicked
+4 make on click effect (da izgleda kao da si udubio dugme i mogao bi dodati da bude iz outseta u inset!)
+*5 polish music player logic (ima novih sfx i onda ne hvata muziku)
 //* SECOND SET OF DOs
 1 calculator logic
 */
