@@ -10,8 +10,8 @@ function boom() {
       if (buttons.classList.contains('digitsOnly')) {
         buttons.style.translate = `0`;
       } else {
-        let x = Math.floor(Math.random() * 200) - 100;;
-        let y = Math.floor(Math.random() * 200) - 100;;
+        let x = Math.floor(Math.random() * 200) - 100;
+        let y = Math.floor(Math.random() * 200) - 100;
         buttons.style.translate = `${x}px ${y}px`;
       };
     });
@@ -34,7 +34,7 @@ function boom() {
   dBody.style.backgroundImage = 'none';
 };
 
-document.querySelector('.dissCalc').addEventListener('click', boom); 
+document.querySelector('.dissCalc').addEventListener('click', boom);
 
 const ehem = document.querySelector('.ehem');
 document.querySelector('.dissCalc').addEventListener('mouseenter', () => {
@@ -121,7 +121,7 @@ document.querySelector('.dwnszC').addEventListener('click', () => {
     if (aBody.offsetHeight < 380) {
       yawn.play();
       return;
-    };    
+    };
     document.querySelector('#pResult').style.marginTop = '3px';
     document.querySelector('#pResult').style.marginBottom = '3px';
     document.querySelector('#pDisplay').style.marginTop = '3px';
@@ -138,7 +138,7 @@ document.querySelector('.dwnszC').addEventListener('click', () => {
       };
     });
   };
-  
+
   let aBmh = aBody.offsetHeight;
   let aBmw = aBody.offsetWidth;
   let cBmh = cBody.offsetHeight;
@@ -199,7 +199,7 @@ function rndCalcOutline() {
     let rgb3 = rgbRng();
     cDrop.play();
     upperLeftBorder.style.borderTop = `10px solid rgb(${rgb1}, ${rgb2}, ${rgb3})`;
-    upperRightBorder.style.borderTop = `10px solid rgb(${rgb1}, ${rgb2}, ${rgb3})`; 
+    upperRightBorder.style.borderTop = `10px solid rgb(${rgb1}, ${rgb2}, ${rgb3})`;
     upperRightBorder.style.borderRight = `10px solid rgb(${rgb1}, ${rgb2}, ${rgb3})`;
     lowerRightBorder.style.borderRight = `10px solid rgb(${rgb1}, ${rgb2}, ${rgb3})`;
     lowerRightBorder.style.borderBottom = `10px solid rgb(${rgb1}, ${rgb2}, ${rgb3})`;
@@ -216,14 +216,14 @@ document.querySelector('.rndColorOutline').addEventListener('click', rndCalcOutl
 const powerOn = document.querySelector('.fa-power-off');
 function powerOnOff() {
   console.log(aBody.classList);
-  if (aBody.classList.contains('powerOnC')) { 
+  if (aBody.classList.contains('powerOnC')) {
       if (aBody.style.opacity === '0') {
         return;
-      };   
+      };
       powerUpSound.play();
       powerOn.style.color = 'green';
       setTimeout(() => {
-      upperLeftBorder.style.borderTop = '10px solid gray';      
+      upperLeftBorder.style.borderTop = '10px solid gray';
       }, 100)
       setTimeout(() => {
         upperRightBorder.style.borderTop = '10px solid gray';
@@ -293,7 +293,7 @@ document.querySelector('.pageBackgroundToggl').addEventListener('click', () => {
   if (n >= 0) {
     bodyBody.style.backgroundImage = `url("${gallery[n]}"), linear-gradient(100deg, #555555, rgb(0, 0, 0))`;
     cDrop.play();
-    n++;    
+    n++;
     if (n === gallery.length) {
       n = 0;
     };
@@ -377,10 +377,108 @@ function playMusic() {
     } while (c === Math.floor((Math.random() * 5) + 0));
     musicArr[c].play();
     playB.style.opacity = '0%';
-    pauseB.style.opacity = '100%';    
+    pauseB.style.opacity = '100%';
   });
 };
 playMusic();
+
+// random laugh feature
+const giggleA = document.querySelector('.giggle');
+function spookyGiggle() {
+  setTimeout(() => {
+    giggleA.play();
+  }, `${Math.floor(Math.random() * 15000) + 5000}`);
+  setTimeout(() => {
+    spookyGiggle();
+  }, `${Math.floor(Math.random() * 15000) + 5000}`);
+};
+// spookyGiggle();
+
+// digits click and key support
+const results = document.querySelector('#pResult');
+let operationDisplay = document.querySelector('#pDisplay');
+console.log(operationDisplay)
+
+document.querySelectorAll('button').forEach((buttons) => {
+  buttons.addEventListener('click', (e) => { 
+    // if (buttons.classList.contains('enterKey')) {
+
+    // }
+    clickedNrOp = e.target;
+    if (operationDisplay.textContent === '0') {
+      operationDisplay.textContent = `${clickedNrOp.textContent}`;
+      return;
+    };
+    operationDisplay.textContent += `${clickedNrOp.textContent}`;
+    buttons.style.backgroundColor = 'gray';
+    buttons.style.border = '5px inset black';
+    // results.textContent = `${e.key}`
+    setTimeout(() => {
+      if (buttons.style.backgroundColor = 'gray') {
+        buttons.style.backgroundColor = 'white';
+        buttons.style.border = '5px outset black';
+      };
+    }, 200)
+  })
+});
+
+window.addEventListener('keydown', (keys) => {
+  document.querySelectorAll('button').forEach((buttons) => {
+    if (buttons.classList.contains('digitsOnly')) {
+      function visibleKeyPress() {
+        buttons.style.backgroundColor = 'gray';
+        buttons.style.border = '5px inset black';
+        setTimeout(() => {
+          if (buttons.style.backgroundColor = 'gray') {
+            buttons.style.backgroundColor = 'white';
+            buttons.style.border = '5px outset black';
+          };
+        }, 200);
+      }
+      if (keys.key === '1' && buttons.classList.contains('nrOne')) {
+        visibleKeyPress();
+      } else if (keys.key === '2' && buttons.classList.contains('nrTwo')) {
+        visibleKeyPress();
+      } else if (keys.key === '3' && buttons.classList.contains('nrThree')) {
+        visibleKeyPress();
+      } else if (keys.key === '4' && buttons.classList.contains('nrFour')) {
+        visibleKeyPress();
+      } else if (keys.key === '5' && buttons.classList.contains('nrFive')) {
+        visibleKeyPress();
+      } else if (keys.key === '6' && buttons.classList.contains('nrSix')) {
+        visibleKeyPress();
+      } else if (keys.key === '7' && buttons.classList.contains('nrSeven')) {
+        visibleKeyPress();
+      } else if (keys.key === '8' && buttons.classList.contains('nrEight')) {
+        visibleKeyPress();
+      } else if (keys.key === '9' && buttons.classList.contains('nrNine')) {
+        visibleKeyPress();
+      }  else if (keys.key === '0' && buttons.classList.contains('nrZero')) {
+        visibleKeyPress();
+      }  else if (keys.key === '+' && buttons.classList.contains('syPlus')) {
+        visibleKeyPress();
+      }  else if (keys.key === '-' && buttons.classList.contains('syMinus')) {
+        visibleKeyPress();
+      }  else if (keys.key === '*' && buttons.classList.contains('syMultiply')) {
+        visibleKeyPress();
+      }  else if (keys.key === '/' && buttons.classList.contains('syDivide')) {
+        visibleKeyPress();
+      }  else if (keys.key === '.' && buttons.classList.contains('enterKeyCousin')) {
+        visibleKeyPress();
+      } else if (keys.key === 'Enter' && buttons.classList.contains('enterKey')) {
+        visibleKeyPress();
+      } else if (keys.key === 'Delete' && buttons.classList.contains('backspaceDelete')) {
+        visibleKeyPress();
+      } else if (keys.key === 'Backspace' && buttons.classList.contains('clearDisplay')) {
+        visibleKeyPress();
+      };
+    };
+  });
+});
+
+window.document.addEventListener('keydown', (e) => {
+  console.log(e);
+});
 
 /*
 //* FIRST SET OF DOs
@@ -389,9 +487,13 @@ playMusic();
 *2 icons for music player
 *3 make buttons round and cozy for uo and mp
   *3.1 add color differentiation static, and when clicked
-4 make on click effect (da izgleda kao da si udubio dugme i mogao bi dodati da bude iz outseta u inset!)
+*4 make on click effect (da izgleda kao da si udubio dugme i mogao bi dodati da bude iz outseta u inset!)
 *5 polish music player logic (ima novih sfx i onda ne hvata muziku)
 //* SECOND SET OF DOs
 1 calculator logic
+  1.1 clicking digits makes real input
+2 keyboard supports
+  *2.1 make keys clickalble
+  2.2 make keys give real input
 */
 
