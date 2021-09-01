@@ -397,7 +397,7 @@ function spookyGiggle() {
 // digits click and key support
 const results = document.querySelector('#pResult');
 let operationDisplay = document.querySelector('#pDisplay');
-console.log(operationDisplay)
+console.log(NrAndOp);
 
 document.querySelectorAll('button').forEach((buttons) => {
   buttons.addEventListener('click', (e) => { 
@@ -491,7 +491,9 @@ window.document.addEventListener('keydown', (e) => {
 *5 polish music player logic (ima novih sfx i onda ne hvata muziku)
 //* SECOND SET OF DOs
 1 calculator logic
-  1.1 clicking digits makes real input
+  *1.1 clicking digits makes real input
+  1.2 operators functional
+  1.3 display result
 2 keyboard supports
   *2.1 make keys clickalble
   2.2 make keys give real input
