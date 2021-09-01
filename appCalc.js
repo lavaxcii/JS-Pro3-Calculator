@@ -397,7 +397,6 @@ function spookyGiggle() {
 // digits click and key support
 const results = document.querySelector('#pResult');
 let operationDisplay = document.querySelector('#pDisplay');
-console.log(NrAndOp);
 
 document.querySelectorAll('button').forEach((buttons) => {
   buttons.addEventListener('click', (e) => { 
