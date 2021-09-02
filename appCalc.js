@@ -395,30 +395,65 @@ function spookyGiggle() {
 // spookyGiggle();
 
 // digits click and key support
-const results = document.querySelector('#pResult');
+let results = document.querySelector('#pResult');
 let operationDisplay = document.querySelector('#pDisplay');
+let commaState = false;
+let operatorState = false;
+console.log(operationDisplay);
 
 document.querySelectorAll('button').forEach((buttons) => {
-  buttons.addEventListener('click', (e) => { 
-    // if (buttons.classList.contains('enterKey')) {
+  buttons.addEventListener('click', (e) => {
+    if (buttons.classList.contains('digitsOnly')) {
+      clickedNrOp = e.target.textContent;
+      console.log(clickedNrOp)
+      buttons.style.backgroundColor = 'gray';
+      buttons.style.border = '5px inset black';
+      setTimeout(() => {
+        if (buttons.style.backgroundColor = 'gray') {
+          buttons.style.backgroundColor = 'white';
+          buttons.style.border = '5px outset black';
+        };
+      }, 200)
 
-    // }
-    clickedNrOp = e.target;
-    if (operationDisplay.textContent === '0') {
-      operationDisplay.textContent = `${clickedNrOp.textContent}`;
-      return;
-    };
-    operationDisplay.textContent += `${clickedNrOp.textContent}`;
-    buttons.style.backgroundColor = 'gray';
-    buttons.style.border = '5px inset black';
-    // results.textContent = `${e.key}`
-    setTimeout(() => {
-      if (buttons.style.backgroundColor = 'gray') {
-        buttons.style.backgroundColor = 'white';
-        buttons.style.border = '5px outset black';
+      if (clickedNrOp === '0' && operationDisplay.textContent.length < 1) {        
+        operationDisplay.textContent = `${clickedNrOp}`;
+      } else if (clickedNrOp === '.' && operationDisplay.textContent.length === 1 && operationDisplay.textContent === '0') {
+        operationDisplay.textContent = `0${clickedNrOp}`;
+        commaState = true;
+        return;
+      } else if (clickedNrOp === '.' && commaState === true) {
+        return;
+      } else if ((clickedNrOp === '+' || clickedNrOp === '-' || clickedNrOp === '*' || clickedNrOp === '/') && operatorState === true) {
+        console.log('HeyHeyPeople')
+        return;
+      } else {
+        if (operationDisplay.textContent === '0') {
+          operationDisplay.textContent = `${clickedNrOp}`;
+          return;          
+        } else if ((clickedNrOp === '+' || clickedNrOp === '-' || clickedNrOp === '*' || clickedNrOp === '/') && operatorState === false) {
+          operationDisplay.textContent += `${clickedNrOp}`;
+          operatorState = true;
+          commaState = false;
+          return;
+        } else if (clickedNrOp === '.') {
+          operationDisplay.textContent += `${clickedNrOp}`;
+          operatorState = true;
+          commaState = true;
+          return;
+        } else if (clickedNrOp === '=') {
+          results = operationDisplay.textContent.split('');
+          for (n = 0; n < results.length; n++) {
+            let resultsToInt = [];
+            resultsToInt += parseInt(results[n]);
+            console.log(resultsToInt);
+          }
+        };
+        operationDisplay.textContent += `${clickedNrOp}`;
+        operatorState = false;
       };
-    }, 200)
-  })
+      
+    };
+  });
 });
 
 window.addEventListener('keydown', (keys) => {
