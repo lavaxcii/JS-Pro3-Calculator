@@ -397,9 +397,19 @@ function spookyGiggle() {
 // digits click and key support
 let results = document.querySelector('#pResult');
 let operationDisplay = document.querySelector('#pDisplay');
+let operationDisplayCalc = '';
 let commaState = false;
 let operatorState = false;
 console.log(operationDisplay);
+let sumAll = 0;
+let divideRes = 0;
+let divideStatus = false;
+let aDiv = 0;
+let bDiv = 0;
+let multiplyRes = 0;
+let multiplyStatus = false;
+let aMult = 0;
+let bMult = 0;
 
 document.querySelectorAll('button').forEach((buttons) => {
   buttons.addEventListener('click', (e) => {
@@ -417,8 +427,10 @@ document.querySelectorAll('button').forEach((buttons) => {
 
       if (clickedNrOp === '0' && operationDisplay.textContent.length < 1) {        
         operationDisplay.textContent = `${clickedNrOp}`;
+        operationDisplayCalc = `${clickedNrOp}`;
       } else if (clickedNrOp === '.' && operationDisplay.textContent.length === 1 && operationDisplay.textContent === '0') {
         operationDisplay.textContent = `0${clickedNrOp}`;
+        operationDisplayCalc = `0${clickedNrOp}`;
         commaState = true;
         return;
       } else if (clickedNrOp === '.' && commaState === true) {
@@ -426,29 +438,129 @@ document.querySelectorAll('button').forEach((buttons) => {
       } else if ((clickedNrOp === '+' || clickedNrOp === '-' || clickedNrOp === '*' || clickedNrOp === '/') && operatorState === true) {
         console.log('HeyHeyPeople')
         return;
+      } else if ((clickedNrOp === '+' || clickedNrOp === '-' || clickedNrOp === '*' || clickedNrOp === '/') && operationDisplay.textContent.length === 1 && operationDisplay.textContent === '0') {
+        console.log('HeyHeyPeople!!!')
+        return;
       } else {
         if (operationDisplay.textContent === '0') {
           operationDisplay.textContent = `${clickedNrOp}`;
+          operationDisplayCalc = `${clickedNrOp}`;
           return;          
         } else if ((clickedNrOp === '+' || clickedNrOp === '-' || clickedNrOp === '*' || clickedNrOp === '/') && operatorState === false) {
           operationDisplay.textContent += `${clickedNrOp}`;
+          operationDisplayCalc += ` ${clickedNrOp} `;
           operatorState = true;
           commaState = false;
           return;
         } else if (clickedNrOp === '.') {
           operationDisplay.textContent += `${clickedNrOp}`;
+          operationDisplayCalc += `${clickedNrOp}`;
           operatorState = true;
           commaState = true;
           return;
         } else if (clickedNrOp === '=') {
-          results = operationDisplay.textContent.split('');
-          for (n = 0; n < results.length; n++) {
-            let resultsToInt = [];
-            resultsToInt += parseInt(results[n]);
-            console.log(resultsToInt);
+          results = operationDisplayCalc.split(' ');
+          
+          for (let n = 0; n < results.length; n++) {
+            // let resultsToInt = [];
+            if ((results[n] === '+' || results[n] === '-')) {
+              if (results[n] === '/') {
+                if (divideRes > 0) {
+                  divideRes = 0;
+                  aDiv = 0;
+                  bDiv = 0;
+                  divideStatus = false;
+                  console.log('DivideClean1')
+                }
+                aDiv = parseFloat(results[n - 1]);
+                bDiv = parseFloat(results[n + 1]);
+                divideRes = parseFloat((aDiv / bDiv).toFixed(2));
+                divideStatus = true;
+                console.log('DivideDONE1')
+              } else if (results[n] === '*') {
+                if (multiplyRes > 0) {
+                  multiplyRes = 0;
+                  aMult = 0;
+                  bMult = 0;
+                  multiplyStatus = false;
+                  console.log('MultiplyClean1')
+                }
+                aMult = parseFloat(results[n - 1]);
+                bMult = parseFloat(results[n + 1]);
+
+                if (results[n] === '*' && divideStatus === true) {
+                  for (let n2 = results.length - n; n2 < results.length; n2++) {
+                    if (results[n2] === '/') {
+                      if (divideRes > 0) {
+                        aDiv = 0;
+                        bDiv = 0;
+                        divideStatus = false;
+                        console.log('NestedInMDivideClean2')
+                      }
+                      aDiv = parseFloat(results[n2 - 1]);
+                      bDiv = parseFloat(results[n2 + 1]);
+                      divideRes *= parseFloat((aDiv / bDiv).toFixed(2));
+                      divideStatus = true;                      
+                      console.log('NestedDivideDONE2')
+                    }
+                  }
+                }
+                if (results[n] === '*' && divideStatus === true && (n + 1) === (results.length - 1)) {
+                  multiplyRes = parseFloat((divideRes * bMult).toFixed(2));
+                  multiplyStatus = true;
+                  console.log('MultiplyWithLastDONE1')
+                }
+
+                if (results[n] === '*' && divideStatus === false && (n - 1) === 0) {
+                  for (let n2 = 0; n2 < results.length; n2++) {
+                    if (results[n2] === '/') {
+                      if (divideRes > 0) {
+                        divideRes = 0;
+                        aDiv = 0;
+                        bDiv = 0;
+                        divideStatus = false;
+                        console.log('NestedDivideClean');
+                      }
+                      aDiv = parseFloat(results[n2 - 1]);
+                      bDiv = parseFloat(results[n2 + 1]);
+                      divideRes = parseFloat((aDiv / bDiv).toFixed(2));
+                      divideStatus = true;
+                      console.log('DivideDONE');
+                    }
+                  }
+                  multiplyRes = parseFloat((divideRes * aMult).toFixed(2));
+                  multiplyStatus = true;
+                  console.log('MMultiplyWithFIrstDONE'); 
+                  return;
+                }
+                multiplyRes = parseFloat((aMult * bMult).toFixed(2));
+                multiplyStatus = true;
+                console.log('MultiplybasicDONE');
+              } else if (results[n] === '+') {
+                let a = parseFloat(results[n - 1]);
+                let b = parseFloat(results[n + 1]);
+                if ((n + 1) === (results.length - 1)) {
+                  sumAll = parseFloat(b + divideRes);
+                  console.log(sumAll);
+                }
+                console.log(sumAll);
+                return;
+              } else if (results[n] === '-') {
+                let a = parseFloat(results[n - 1]).toFixed(2);
+                let b = parseFloat(results[n + 1]).toFixed(2);              
+                sumAll = (a - b) + divideRes;
+                console.log(sumAll);
+              }
+            } 
           }
+          console.log('HeyHeyPeople')
+          console.log(results);
+          console.log(divideRes);
+          console.log(multiplyRes);
+          console.log(sumAll);
         };
         operationDisplay.textContent += `${clickedNrOp}`;
+        operationDisplayCalc += `${clickedNrOp}`;
         operatorState = false;
       };
       
