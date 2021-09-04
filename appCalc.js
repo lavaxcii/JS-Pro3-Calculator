@@ -396,6 +396,7 @@ function spookyGiggle() {
 
 // digits click and key support
 let results = document.querySelector('#pResult');
+let operationResults;
 let operationDisplay = document.querySelector('#pDisplay');
 let operationDisplayCalc = '';
 let commaState = false;
@@ -410,6 +411,12 @@ let multiplyRes = 0;
 let multiplyStatus = false;
 let aMult = 0;
 let bMult = 0;
+let addRes = 0;
+let aAdd = 0;
+let bAdd = 0;
+let subRes = 0;
+let aSub = 0;
+let bSub = 0;
 
 document.querySelectorAll('button').forEach((buttons) => {
   buttons.addEventListener('click', (e) => {
@@ -459,106 +466,86 @@ document.querySelectorAll('button').forEach((buttons) => {
           commaState = true;
           return;
         } else if (clickedNrOp === '=') {
-          results = operationDisplayCalc.split(' ');
-          
-          for (let n = 0; n < results.length; n++) {
-            // let resultsToInt = [];
-            if ((results[n] === '+' || results[n] === '-')) {
-              if (results[n] === '/') {
-                if (divideRes > 0) {
-                  divideRes = 0;
-                  aDiv = 0;
-                  bDiv = 0;
-                  divideStatus = false;
-                  console.log('DivideClean1')
-                }
-                aDiv = parseFloat(results[n - 1]);
-                bDiv = parseFloat(results[n + 1]);
-                divideRes = parseFloat((aDiv / bDiv).toFixed(2));
-                divideStatus = true;
-                console.log('DivideDONE1')
-              } else if (results[n] === '*') {
-                if (multiplyRes > 0) {
-                  multiplyRes = 0;
-                  aMult = 0;
-                  bMult = 0;
-                  multiplyStatus = false;
-                  console.log('MultiplyClean1')
-                }
-                aMult = parseFloat(results[n - 1]);
-                bMult = parseFloat(results[n + 1]);
 
-                if (results[n] === '*' && divideStatus === true) {
-                  for (let n2 = results.length - n; n2 < results.length; n2++) {
-                    if (results[n2] === '/') {
-                      if (divideRes > 0) {
-                        aDiv = 0;
-                        bDiv = 0;
-                        divideStatus = false;
-                        console.log('NestedInMDivideClean2')
-                      }
-                      aDiv = parseFloat(results[n2 - 1]);
-                      bDiv = parseFloat(results[n2 + 1]);
-                      divideRes *= parseFloat((aDiv / bDiv).toFixed(2));
-                      divideStatus = true;                      
-                      console.log('NestedDivideDONE2')
-                    }
-                  }
-                }
-                if (results[n] === '*' && divideStatus === true && (n + 1) === (results.length - 1)) {
-                  multiplyRes = parseFloat((divideRes * bMult).toFixed(2));
-                  multiplyStatus = true;
-                  console.log('MultiplyWithLastDONE1')
-                }
+          operationResults = operationDisplayCalc.split(' ');
+          console.log('display says: ' + operationResults);
 
-                if (results[n] === '*' && divideStatus === false && (n - 1) === 0) {
-                  for (let n2 = 0; n2 < results.length; n2++) {
-                    if (results[n2] === '/') {
-                      if (divideRes > 0) {
-                        divideRes = 0;
-                        aDiv = 0;
-                        bDiv = 0;
-                        divideStatus = false;
-                        console.log('NestedDivideClean');
-                      }
-                      aDiv = parseFloat(results[n2 - 1]);
-                      bDiv = parseFloat(results[n2 + 1]);
-                      divideRes = parseFloat((aDiv / bDiv).toFixed(2));
-                      divideStatus = true;
-                      console.log('DivideDONE');
-                    }
-                  }
-                  multiplyRes = parseFloat((divideRes * aMult).toFixed(2));
-                  multiplyStatus = true;
-                  console.log('MMultiplyWithFIrstDONE'); 
-                  return;
-                }
-                multiplyRes = parseFloat((aMult * bMult).toFixed(2));
-                multiplyStatus = true;
-                console.log('MultiplybasicDONE');
-              } else if (results[n] === '+') {
-                let a = parseFloat(results[n - 1]);
-                let b = parseFloat(results[n + 1]);
-                if ((n + 1) === (results.length - 1)) {
-                  sumAll = parseFloat(b + divideRes);
-                  console.log(sumAll);
-                }
-                console.log(sumAll);
-                return;
-              } else if (results[n] === '-') {
-                let a = parseFloat(results[n - 1]).toFixed(2);
-                let b = parseFloat(results[n + 1]).toFixed(2);              
-                sumAll = (a - b) + divideRes;
-                console.log(sumAll);
+          for (let n = 0; n < operationResults.length - 1; n++) {
+            if (operationResults[n] === '/') {
+              if (divideRes > 0) {
+                divideRes = 0;
+                aDiv = 0;
+                bDiv = 0;
+                divideStatus = false;
               }
-            } 
+              aDiv = parseFloat(operationResults[n - 1]);
+              bDiv = parseFloat(operationResults[n + 1]);
+              divideRes = (aDiv / bDiv).toFixed(2);
+              divideStatus = true;  
+              operationResults.splice(`${n - 1}`, 3, `${divideRes}`);
+              n = 0;              
+              console.log('after DIVIDE operation display says: ' + operationResults);
+              console.log('DivideDONE');
+            }
           }
+
+          console.log('after DIVIDE operations FINISHED display says: ' + operationResults);
+
+          
+          for (let n = 0; n < operationResults.length - 1; n++) {
+            if (operationResults[n] === '*') {
+              if (multiplyRes > 0) {
+                multiplyRes = 0;
+                aMult = 0;
+                bMult = 0;
+                multiplyStatus = false;
+              }
+              aMult = parseFloat(operationResults[n - 1]);
+              bMult = parseFloat(operationResults[n + 1]);
+              multiplyRes = (aMult * bMult).toFixed(2);
+              multiplyStatus = true;  
+              operationResults.splice(`${n - 1}`, 3, `${multiplyRes}`);
+              n = 0;
+              console.log('after MULTIPLY operation display says: ' + operationResults);
+              console.log('MutiplyDONE');
+            }
+          }
+
+          console.log('after MULTIPLY operations FINISHED display says: ' + operationResults);
+
+          for (let n = 0; n < operationResults.length - 1; n++) {
+            if (operationResults[n] === '+') {              
+              aAdd = parseFloat(operationResults[n - 1]);
+              bAdd = parseFloat(operationResults[n + 1]);
+              addRes = (aAdd + bAdd).toFixed(2); 
+              operationResults.splice(`${n - 1}`, 3, `${addRes}`);
+              n = 0;
+              console.log('after ADDITION operation display says: ' + operationResults);
+              console.log('AdditionDONE');
+            } else if (operationResults[n] === '-') {
+              aSub = parseFloat(operationResults[n - 1]);
+              bSub = parseFloat(operationResults[n + 1]);
+              subRes = (aSub - bSub).toFixed(2); 
+              operationResults.splice(`${n - 1}`, 3, `${subRes}`);
+              n = 0;
+              console.log('after SUBTRACTION operation display says: ' + operationResults);
+              console.log('SubtractionDONE');
+            }
+          }
+
           console.log('HeyHeyPeople')
-          console.log(results);
-          console.log(divideRes);
-          console.log(multiplyRes);
-          console.log(sumAll);
-        };
+          sumAll = operationResults;
+          operationDisplay.textContent = '0';
+          console.log('after ALL operations FINISHED display says: ' + operationResults);
+          console.log('divide results is: ' + divideRes);
+          console.log('multiply results is: ' + multiplyRes);
+          console.log('final sum is: ' + sumAll);
+          results.textContent = sumAll;
+          return;
+        } 
+        // else if (clickedNrOp === 'DEL') {
+        //   operationDisplay.textContent.
+        // };
         operationDisplay.textContent += `${clickedNrOp}`;
         operationDisplayCalc += `${clickedNrOp}`;
         operatorState = false;
