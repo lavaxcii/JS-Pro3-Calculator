@@ -163,6 +163,8 @@ const lowerLeftBorder = document.querySelector('.lowerLeftBorder');
 const lowerRightBorder = document.querySelector('.lowerRightBorder');
 const aBody = document.querySelector('.animationBody');
 const display = document.querySelector('.display');
+const result = document.querySelector('.result');
+const digitDisplay = document.querySelector('.digitDisplay');
 const powerUpSound = document.querySelector('.powerUpSound');
 const powerUpVoice = document.querySelector('.powerUpVoice');
 const cDrop = document.querySelector('.cDrop');
@@ -243,7 +245,8 @@ function powerOnOff() {
       setTimeout(() => {
         aBody.classList.remove('powerOnC');
         aBody.style.boxShadow = 'none';
-        display.style.backgroundImage = 'linear-gradient(100deg, rgb(0, 0, 0), #000000)';
+        result.style.backgroundImage = 'linear-gradient(100deg, rgb(0, 0, 0), #000000)';
+        digitDisplay.style.backgroundImage = 'linear-gradient(100deg, rgb(0, 0, 0), #000000)'; 
       }, 1200)
   } else {
     if (aBody.style.opacity === '0') {
@@ -273,7 +276,8 @@ function powerOnOff() {
       setTimeout(() => {
         aBody.classList.add('powerOnC');
         aBody.style.boxShadow = '0px 0px 80px 20px yellow';
-        display.style.backgroundImage = 'linear-gradient(100deg, rgb(175, 175, 175), #ffffff)';
+        result.style.backgroundImage = 'linear-gradient(100deg, rgb(175, 175, 175), #ffffff)';
+        digitDisplay.style.backgroundImage = 'linear-gradient(100deg, rgb(175, 175, 175), #ffffff)';
         powerUpVoice.play();
       }, 1200)
       setTimeout(() => {
@@ -432,6 +436,10 @@ document.querySelectorAll('button').forEach((buttons) => {
         };
       }, 200)
 
+      if (aBody.classList[1] !== 'powerOnC') {
+        return;
+      };
+
       if (clickedNrOp === '0' && operationDisplay.textContent.length < 1) {        
         operationDisplay.textContent = `${clickedNrOp}`;
         operationDisplayCalc = `${clickedNrOp}`;
@@ -440,16 +448,21 @@ document.querySelectorAll('button').forEach((buttons) => {
         operationDisplayCalc = `0${clickedNrOp}`;
         commaState = true;
         return;
+      } else if ((clickedNrOp === '.') &&  (operationDisplay.textContent.endsWith('+') || operationDisplay.textContent.endsWith('-') || operationDisplay.textContent.endsWith('*') || operationDisplay.textContent.endsWith('/'))) {
+        operationDisplay.textContent += `0${clickedNrOp}`;
+        operationDisplayCalc += `0${clickedNrOp}`;
+        commaState = true;
+        return;
       } else if (clickedNrOp === '.' && commaState === true) {
         return;
       } else if ((clickedNrOp === '+' || clickedNrOp === '-' || clickedNrOp === '*' || clickedNrOp === '/') && operatorState === true) {
         console.log('HeyHeyPeople')
         return;
-      } else if ((clickedNrOp === '+' || clickedNrOp === '-' || clickedNrOp === '*' || clickedNrOp === '/') && operationDisplay.textContent.length === 1 && operationDisplay.textContent === '0') {
+      } else if ((clickedNrOp === '+' || clickedNrOp === '-' || clickedNrOp === '*' || clickedNrOp === '/' || clickedNrOp === '=' || clickedNrOp === 'DEL') && operationDisplay.textContent.length === 1 && operationDisplay.textContent === '0') {
         console.log('HeyHeyPeople!!!')
         return;
       } else {
-        if (operationDisplay.textContent === '0') {
+        if (operationDisplay.textContent === '0' && clickedNrOp !== 'C') {
           operationDisplay.textContent = `${clickedNrOp}`;
           operationDisplayCalc = `${clickedNrOp}`;
           return;          
@@ -463,9 +476,9 @@ document.querySelectorAll('button').forEach((buttons) => {
           operationDisplay.textContent += `${clickedNrOp}`;
           operationDisplayCalc += `${clickedNrOp}`;
           operatorState = true;
-          commaState = true;
+          commaState = true;  
           return;
-        } else if (clickedNrOp === '=') {
+        } else if (clickedNrOp === '=') {          
 
           operationResults = operationDisplayCalc.split(' ');
           console.log('display says: ' + operationResults);
@@ -479,7 +492,7 @@ document.querySelectorAll('button').forEach((buttons) => {
                 divideStatus = false;
               }
               aDiv = parseFloat(operationResults[n - 1]);
-              bDiv = parseFloat(operationResults[n + 1]);
+              bDiv = parseFloat(operationResults[n + 1]);              
               divideRes = (aDiv / bDiv).toFixed(2);
               divideStatus = true;  
               operationResults.splice(`${n - 1}`, 3, `${divideRes}`);
@@ -533,24 +546,60 @@ document.querySelectorAll('button').forEach((buttons) => {
             }
           }
 
+          if (Number.isNaN(bDiv) === true || Number.isNaN(bAdd) === true || Number.isNaN(bAdd) === true || Number.isNaN(bSub) === true) {
+            return;
+          }
+
           console.log('HeyHeyPeople')
           sumAll = operationResults;
+          commaState = false;
           operationDisplay.textContent = '0';
           console.log('after ALL operations FINISHED display says: ' + operationResults);
           console.log('divide results is: ' + divideRes);
           console.log('multiply results is: ' + multiplyRes);
           console.log('final sum is: ' + sumAll);
           results.textContent = sumAll;
-          return;
-        } 
-        // else if (clickedNrOp === 'DEL') {
-        //   operationDisplay.textContent.
-        // };
-        operationDisplay.textContent += `${clickedNrOp}`;
-        operationDisplayCalc += `${clickedNrOp}`;
-        operatorState = false;
+        } else if (clickedNrOp === 'DEL') {
+          //del on display
+          let operationDisplayDel = operationDisplay.textContent.split('');
+          operationDisplayDel.splice(`${operationDisplayDel.length - 1}`, 1);
+          if (operationDisplayDel.length < 1) {
+            operationDisplayDel.splice(`${operationDisplayDel.length - 1}`, 1, '0');
+          };
+          operationDisplay.textContent = operationDisplayDel.join('');
+          console.log(operationDisplayDel);
+
+          //del on real calc var
+          let operationDisplayDel2 = operationDisplayCalc.split('');
+          if (operationDisplayDel2[operationDisplayDel2.length - 1] === ' ') {
+            if (operationDisplayDel2.includes('.') && operationDisplayDel2.lastIndexOf('.') > operationDisplayDel2.length - 8) {
+              console.log('Shif comma state')
+              commaState = true;  
+            }
+            operatorState = false;
+            operationDisplayDel2.splice(`${operationDisplayDel2.length - 3}`, 3);
+            console.log('operator deleted');
+          } else if (operationDisplayDel2[operationDisplayDel2.length - 1] === '.' && commaState === true) {
+            operationDisplayDel2.splice(`${operationDisplayDel2.length - 1}`, 1);
+            commaState = false;
+          } else if (operationDisplayDel2.length < 1) {
+            operationDisplayDel2.splice(`${operationDisplayDel2.length - 1}`, 1, '0');
+          } else if (operationDisplayDel2.length > 1) {
+            operationDisplayDel2.splice(`${operationDisplayDel2.length - 1}`, 1);
+          }
+          console.log(operationDisplayDel2);
+          operationDisplayCalc = operationDisplayDel2.join('');
+        } else if (clickedNrOp === 'C') {       
+          operationDisplay.textContent = '0';
+          operationDisplayCalc = '0';
+          results.textContent = '0';
+          console.log('I did C!')
+        } else {          
+          operationDisplay.textContent += `${clickedNrOp}`;
+          operationDisplayCalc += `${clickedNrOp}`;
+          operatorState = false;
+        };
       };
-      
     };
   });
 });
