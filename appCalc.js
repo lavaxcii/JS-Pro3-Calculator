@@ -711,8 +711,9 @@ document.querySelectorAll('button').forEach((buttons) => {
 
           console.log('HeyHeyPeople')
           sumAll = operationResults;
-          commaState = false;
-          operationDisplay.textContent = '0';
+          commaState = true;
+          operationDisplay.textContent = `${sumAll}`;
+          operationDisplayCalc = `${sumAll}`;
           console.log('after ALL operations FINISHED display says: ' + operationResults);
           console.log('divide results is: ' + divideRes);
           console.log('multiply results is: ' + multiplyRes);
@@ -729,9 +730,12 @@ document.querySelectorAll('button').forEach((buttons) => {
             } else if (operationDisplayDel[operationDisplayDel.length - 3] === undefined && operationDisplayDel.length === 2) {
               operationDisplayDel.splice(`${operationDisplayDel.length - 2}`, 2, '0');
               console.log('Zero begone!')
+            } else {
+              operationDisplayDel.splice(`${operationDisplayDel.length - 1}`, 1);
             }
           } else {
             operationDisplayDel.splice(`${operationDisplayDel.length - 1}`, 1);
+            console.log('I ERASED COMMA!')
           };
           operationDisplay.textContent = operationDisplayDel.join('');
           console.log(operationDisplayDel);
