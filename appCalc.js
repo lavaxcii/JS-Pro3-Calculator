@@ -24,7 +24,7 @@ function boom() {
     return;
   };
   exploCrumble.play();
-  // scatterButtons();
+ scatterButtons();
   const disObj = disintegrate.getDisObj(aBody);
   disintegrate.createSimultaneousParticles(disObj);
   const disObj2 = disintegrate.getDisObj(cBody);
@@ -36,6 +36,23 @@ function boom() {
 
 document.querySelector('.dissCalc').addEventListener('click', boom);
 
+function unscatterButtons() {
+  document.querySelectorAll('button').forEach((buttons) => {
+    if (buttons.classList.contains('digitsOnly')) {
+      buttons.style.translate = `0`;
+    } else {
+      let x = 0;
+      let y = 0;
+      buttons.style.translate = `${x}px ${y}px`;
+    };
+  });
+}
+window.addEventListener('keydown', (keys) => {
+  if (keys.key === 'z') {
+    unscatterButtons();
+  };
+});
+
 const ehem = document.querySelector('.ehem');
 document.querySelector('.dissCalc').addEventListener('mouseenter', () => {
   ehem.play();
@@ -43,7 +60,7 @@ document.querySelector('.dissCalc').addEventListener('mouseenter', () => {
 
 // calculator reappear
 const whistleReborn = document.querySelector('.whistleReborn');
-document.querySelector('.nC').addEventListener('click', () => {
+function calcReapear() {
   const aBody = document.querySelector('.animationBody');
   const cBody = document.querySelector('.calculatorBody');
   const containerDiv = document.querySelector('.containerDiv');
@@ -56,13 +73,15 @@ document.querySelector('.nC').addEventListener('click', () => {
   aBody.style.opacity = '100%';
   cBody.style.opacity = '100%';
   containerDiv.style.backgroundImage = 'linear-gradient(100deg, #555555, rgb(0, 0, 0))';
-});
+}
+document.querySelector('.nC').addEventListener('click', calcReapear);
 
 // upsize calc
 const wDrop = document.querySelector('.wDrop');
 const yawn = document.querySelector('.yawn');
 const wow = document.querySelector('.wow');
-document.querySelector('.upszC').addEventListener('click', () => {
+function upsizeCalc() {
+
   const aBody = document.querySelector('.animationBody');
   const cBody = document.querySelector('.calculatorBody');
   const dBody = document.querySelector('.digits');
@@ -107,10 +126,12 @@ document.querySelector('.upszC').addEventListener('click', () => {
   dBody.style.width = `${dBmw+30}px`;
 
   wDrop.play();
-});
+}
+document.querySelector('.upszC').addEventListener('click', upsizeCalc);
 
 // downsize calc
-document.querySelector('.dwnszC').addEventListener('click', () => {
+function downsizeCalc() {
+
   const aBody = document.querySelector('.animationBody');
   const cBody = document.querySelector('.calculatorBody');
   const dBody = document.querySelector('.digits');
@@ -154,7 +175,8 @@ document.querySelector('.dwnszC').addEventListener('click', () => {
   dBody.style.width = `${dBmw-30}px`;
 
   wDrop.play();
-});
+};
+document.querySelector('.dwnszC').addEventListener('click', downsizeCalc);
 
 // rnd calc outline
 const upperLeftBorder = document.querySelector('.upperLeftBorder');
@@ -169,23 +191,6 @@ const powerUpSound = document.querySelector('.powerUpSound');
 const powerUpVoice = document.querySelector('.powerUpVoice');
 const cDrop = document.querySelector('.cDrop');
 const buttonImage = document.querySelector('.fa-border-style');
-
-function rotateButtonImageColors() {
-  function rgbRng() {
-    let randomRgbNr = Math.floor(Math.random() * 255) + 0;
-    return randomRgbNr;
-  };
-  let rgb1 = rgbRng();
-  let rgb2 = rgbRng();
-  let rgb3 = rgbRng();
-  setTimeout(() => {
-    buttonImage.style.color = `rgb(${rgb1}, ${rgb2}, ${rgb3}`;
-  }, 1500);
-  setTimeout(() => {
-  rotateButtonImageColors();
-  }, 1500);
-}
-rotateButtonImageColors();
 
 function rndCalcOutline() {
   if (aBody.classList.contains('powerOnC')) {
@@ -213,6 +218,24 @@ function rndCalcOutline() {
 };
 
 document.querySelector('.rndColorOutline').addEventListener('click', rndCalcOutline);
+
+//rotate colors on button icon
+function rotateButtonImageColors() {
+  function rgbRng() {
+    let randomRgbNr = Math.floor(Math.random() * 255) + 0;
+    return randomRgbNr;
+  };
+  let rgb1 = rgbRng();
+  let rgb2 = rgbRng();
+  let rgb3 = rgbRng();
+  setTimeout(() => {
+    buttonImage.style.color = `rgb(${rgb1}, ${rgb2}, ${rgb3}`;
+  }, 1500);
+  setTimeout(() => {
+  rotateButtonImageColors();
+  }, 1500);
+}
+rotateButtonImageColors();
 
 // power up calc (= outline calc in radiant yellow and enable calc functionality)
 const powerOn = document.querySelector('.fa-power-off');
@@ -293,7 +316,7 @@ const bodyBody = document.querySelector('body');
 const gallery = ['./bImages/hand.png', './bImages/forest.png', './bImages/waterfall.png', './bImages/traveler.png', ''];
 let n = 0;
 
-document.querySelector('.pageBackgroundToggl').addEventListener('click', () => {
+function backgroundSwap() {
   if (n >= 0) {
     bodyBody.style.backgroundImage = `url("${gallery[n]}"), linear-gradient(100deg, #555555, rgb(0, 0, 0))`;
     cDrop.play();
@@ -302,7 +325,9 @@ document.querySelector('.pageBackgroundToggl').addEventListener('click', () => {
       n = 0;
     };
   };
-});
+
+}
+document.querySelector('.pageBackgroundToggl').addEventListener('click', backgroundSwap);
 
 //change display font
 function fontSwap() {
@@ -322,12 +347,24 @@ const music = document.querySelectorAll('audio');
 const musicArr = Array.from(music);
 musicArr.splice(0, 11);
 console.log(musicArr);
+const allButtons = document.querySelectorAll('button')
+function keyPressEffect(button) {
+  button.style.backgroundColor = 'gray';
+  button.style.border = '5px inset black';
+  setTimeout(() => {
+    if (button.style.backgroundColor = 'gray') {
+      button.style.backgroundColor = 'white';
+      button.style.border = '5px outset black';
+    };
+  }, 200)
+}
 
 function playMusic() {
   const pauseB = document.querySelector('.fa-pause');
   const playB = document.querySelector('.fa-play');
   let c = 0;
-  document.querySelector('.previous').addEventListener('click', () => {
+
+  function previous() {
     if (musicArr[c].paused === false) {
       musicArr[c].pause();
     };
@@ -336,14 +373,25 @@ function playMusic() {
       musicArr[c].play();
       playB.style.opacity = '0%';
       pauseB.style.opacity = '100%';
+      allButtons.forEach((button) => {
+      if (button.classList.contains('previous')) {
+        keyPressEffect(button)
+      };
+    });
       return;
     };
     c--
     musicArr[c].play();
     playB.style.opacity = '0%';
     pauseB.style.opacity = '100%';
-  });
-  document.querySelector('.next').addEventListener('click', () => {
+    allButtons.forEach((button) => {
+      if (button.classList.contains('previous')) {
+        keyPressEffect(button)
+      };
+    });
+  };
+
+  function next() {
     if (musicArr[c].paused === false) {
       musicArr[c].pause();
     };
@@ -352,25 +400,47 @@ function playMusic() {
       musicArr[c].play();
       playB.style.opacity = '0%';
       pauseB.style.opacity = '100%';
+      allButtons.forEach((button) => {
+        if (button.classList.contains('next')) {
+          keyPressEffect(button)
+        };
+      });
       return;
     };
     c++
     musicArr[c].play();
     playB.style.opacity = '0%';
     pauseB.style.opacity = '100%';
-  });
-  document.querySelector('.playStop').addEventListener('click', () => {
+    allButtons.forEach((button) => {
+      if (button.classList.contains('next')) {
+        keyPressEffect(button)
+      };
+    });
+  };
+
+  function playStop() {
     if (musicArr[c].paused === false) {
       musicArr[c].pause();
       playB.style.opacity = '100%';
       pauseB.style.opacity = '0%';
+      allButtons.forEach((button) => {
+        if (button.classList.contains('playStop')) {
+          keyPressEffect(button)
+        };
+      });
       return;
     };
     musicArr[c].play();
     playB.style.opacity = '0%';
     pauseB.style.opacity = '100%';
-  });
-  document.querySelector('.random').addEventListener('click', () => {
+    allButtons.forEach((button) => {
+      if (button.classList.contains('playStop')) {
+        keyPressEffect(button)
+      };
+    });
+  };
+
+  function random() {
     if (musicArr[c].paused === false) {
       musicArr[c].pause();
       playB.style.opacity = '100%';
@@ -382,9 +452,92 @@ function playMusic() {
     musicArr[c].play();
     playB.style.opacity = '0%';
     pauseB.style.opacity = '100%';
+    allButtons.forEach((button) => {
+      if (button.classList.contains('random')) {
+        keyPressEffect(button)
+      };
+    });
+  }
+
+  document.querySelector('.previous').addEventListener('click', previous);
+  document.querySelector('.next').addEventListener('click', next);
+  document.querySelector('.playStop').addEventListener('click', playStop);
+  document.querySelector('.random').addEventListener('click', random);
+
+  window.addEventListener('keydown', (keys) => {
+    if (keys.key === 'q') {
+      previous();
+    } else if (keys.key === 'w') {
+      playStop();
+    } else if (keys.key === 'e') {
+      next();
+    } else if (keys.key === 'r') {
+      random();
+    };
   });
 };
 playMusic();
+
+//keyboard feature for user options
+window.addEventListener('keydown', (keys) => {
+  if (keys.key === 'o') {
+    powerOnOff();
+    allButtons.forEach((button) => {
+      if (button.classList.contains('powerUpCalc2')) {
+        keyPressEffect(button)
+      };
+    });
+  } else if (keys.key === 'k') {
+    upsizeCalc();
+    allButtons.forEach((button) => {
+      if (button.classList.contains('upszC')) {
+        keyPressEffect(button)
+      };
+    });
+  } else if (keys.key === 'm') {
+    downsizeCalc();
+    allButtons.forEach((button) => {
+      if (button.classList.contains('dwnszC')) {
+        keyPressEffect(button)
+      };
+    });
+  } else if (keys.key === 'i') {
+    rndCalcOutline();
+    allButtons.forEach((button) => {
+      if (button.classList.contains('rndColorOutline')) {
+        keyPressEffect(button)
+      };
+    });
+  } else if (keys.key === 'j') {
+    backgroundSwap();
+    allButtons.forEach((button) => {
+      if (button.classList.contains('pageBackgroundToggl')) {
+        keyPressEffect(button)
+      };
+    });
+  } else if (keys.key === 'n') {
+    fontSwap();
+    allButtons.forEach((button) => {
+      if (button.classList.contains('fontChange')) {
+        keyPressEffect(button)
+      };
+    });
+  } else if (keys.key === 'u') {
+    boom();
+    allButtons.forEach((button) => {
+      if (button.classList.contains('dissCalc')) {
+        keyPressEffect(button)
+      };
+    });
+  } else if (keys.key === 'h') {
+    calcReapear();
+    allButtons.forEach((button) => {
+      if (button.classList.contains('nC')) {
+        keyPressEffect(button)
+      };
+    });
+  };
+});
 
 // random laugh feature
 const giggleA = document.querySelector('.giggle');
@@ -396,7 +549,7 @@ function spookyGiggle() {
     spookyGiggle();
   }, `${Math.floor(Math.random() * 15000) + 5000}`);
 };
-// spookyGiggle();
+spookyGiggle();
 
 // digits click and key support
 let results = document.querySelector('#pResult');
@@ -425,7 +578,7 @@ let bSub = 0;
 document.querySelectorAll('button').forEach((buttons) => {
   buttons.addEventListener('click', (e) => {
     if (buttons.classList.contains('digitsOnly')) {
-      clickedNrOp = e.target.textContent;
+      let clickedNrOp = e.target.textContent;
       console.log(clickedNrOp)
       buttons.style.backgroundColor = 'gray';
       buttons.style.border = '5px inset black';
@@ -466,7 +619,12 @@ document.querySelectorAll('button').forEach((buttons) => {
           operationDisplay.textContent = `${clickedNrOp}`;
           operationDisplayCalc = `${clickedNrOp}`;
           return;          
+        } else if ((operationDisplay.textContent.endsWith('+') || operationDisplay.textContent.endsWith('-') || operationDisplay.textContent.endsWith('*') || operationDisplay.textContent.endsWith('/')) && clickedNrOp === '0') {
+          return;
         } else if ((clickedNrOp === '+' || clickedNrOp === '-' || clickedNrOp === '*' || clickedNrOp === '/') && operatorState === false) {
+          if (operationDisplay.textContent.endsWith('.')) {
+            return;
+          };
           operationDisplay.textContent += `${clickedNrOp}`;
           operationDisplayCalc += ` ${clickedNrOp} `;
           operatorState = true;
@@ -562,9 +720,17 @@ document.querySelectorAll('button').forEach((buttons) => {
         } else if (clickedNrOp === 'DEL') {
           //del on display
           let operationDisplayDel = operationDisplay.textContent.split('');
-          operationDisplayDel.splice(`${operationDisplayDel.length - 1}`, 1);
-          if (operationDisplayDel.length < 1) {
+          if (operationDisplayDel.length <= 1) {
             operationDisplayDel.splice(`${operationDisplayDel.length - 1}`, 1, '0');
+          } else if (operationDisplayDel[operationDisplayDel.length - 1] === '.') {
+            if (operationDisplayDel[operationDisplayDel.length - 2] === '0' && (operationDisplayDel[operationDisplayDel.length - 3] === '+' || operationDisplayDel[operationDisplayDel.length - 3] === '-' || operationDisplayDel[operationDisplayDel.length - 3] === '*' || operationDisplayDel[operationDisplayDel.length - 3] === '/')) {
+              operationDisplayDel.splice(`${operationDisplayDel.length - 2}`, 2);
+            } else if (operationDisplayDel[operationDisplayDel.length - 3] === undefined && operationDisplayDel.length === 2) {
+              operationDisplayDel.splice(`${operationDisplayDel.length - 2}`, 2, '0');
+              console.log('Zero begone!')
+            }
+          } else {
+            operationDisplayDel.splice(`${operationDisplayDel.length - 1}`, 1);
           };
           operationDisplay.textContent = operationDisplayDel.join('');
           console.log(operationDisplayDel);
@@ -572,7 +738,7 @@ document.querySelectorAll('button').forEach((buttons) => {
           //del on real calc var
           let operationDisplayDel2 = operationDisplayCalc.split('');
           if (operationDisplayDel2[operationDisplayDel2.length - 1] === ' ') {
-            if (operationDisplayDel2.includes('.') && operationDisplayDel2.lastIndexOf('.') > operationDisplayDel2.length - 8) {
+            if (operationDisplayDel2.includes('.') && operationDisplayDel2.lastIndexOf('.') > operationDisplayDel2.length - 7) {
               console.log('Shif comma state')
               commaState = true;  
             }
@@ -580,11 +746,22 @@ document.querySelectorAll('button').forEach((buttons) => {
             operationDisplayDel2.splice(`${operationDisplayDel2.length - 3}`, 3);
             console.log('operator deleted');
           } else if (operationDisplayDel2[operationDisplayDel2.length - 1] === '.' && commaState === true) {
-            operationDisplayDel2.splice(`${operationDisplayDel2.length - 1}`, 1);
-            commaState = false;
+            if (operationDisplayDel2[operationDisplayDel2.length - 2] === '0' && (operationDisplayDel2[operationDisplayDel2.length - 4] === '+' || operationDisplayDel2[operationDisplayDel2.length - 4] === '-' || operationDisplayDel2[operationDisplayDel2.length - 4] === '*' || operationDisplayDel2[operationDisplayDel2.length - 4] === '/' || operationDisplayDel2[operationDisplayDel2.length - 3] === undefined)) {
+              if (operationDisplayDel2.length <= 2) {
+                operationDisplayDel2.splice(`${operationDisplayDel2.length - 2}`, 2, '0');
+                commaState = false;
+                return;
+              }
+              operationDisplayDel2.splice(`${operationDisplayDel2.length - 2}`, 2);
+              console.log('Zero point deleted')
+              commaState = false;
+            } else {
+              operationDisplayDel2.splice(`${operationDisplayDel2.length - 1}`, 1);
+              commaState = false;
+            }
           } else if (operationDisplayDel2.length < 1) {
             operationDisplayDel2.splice(`${operationDisplayDel2.length - 1}`, 1, '0');
-          } else if (operationDisplayDel2.length > 1) {
+          } else if (operationDisplayDel2.length > 1) {            
             operationDisplayDel2.splice(`${operationDisplayDel2.length - 1}`, 1);
           }
           console.log(operationDisplayDel2);
@@ -600,14 +777,26 @@ document.querySelectorAll('button').forEach((buttons) => {
           operatorState = false;
         };
       };
+    } else {
+      buttons.style.backgroundColor = 'gray';
+      buttons.style.border = '5px inset black';
+      setTimeout(() => {
+        if (buttons.style.backgroundColor = 'gray') {
+          buttons.style.backgroundColor = 'white';
+          buttons.style.border = '5px outset black';
+        };
+      }, 200)
     };
   });
 });
 
 window.addEventListener('keydown', (keys) => {
   document.querySelectorAll('button').forEach((buttons) => {
-    if (buttons.classList.contains('digitsOnly')) {
-      function visibleKeyPress() {
+    let clickedNrOp = keys.key;
+    if ((buttons.classList.contains('digitsOnly') && buttons.textContent === `${clickedNrOp}`) || (buttons.classList.contains('enterKey') && `${clickedNrOp}` === 'Enter') || (buttons.classList.contains('clearDisplay') && `${clickedNrOp}` === 'c') || (buttons.classList.contains('backspaceDelete') && `${clickedNrOp}` === 'Delete')) {
+      console.log('THIS IS KEY OF KEYS: ' + clickedNrOp)
+
+      if (clickedNrOp === keys.key ) {
         buttons.style.backgroundColor = 'gray';
         buttons.style.border = '5px inset black';
         setTimeout(() => {
@@ -617,43 +806,192 @@ window.addEventListener('keydown', (keys) => {
           };
         }, 200);
       }
-      if (keys.key === '1' && buttons.classList.contains('nrOne')) {
-        visibleKeyPress();
-      } else if (keys.key === '2' && buttons.classList.contains('nrTwo')) {
-        visibleKeyPress();
-      } else if (keys.key === '3' && buttons.classList.contains('nrThree')) {
-        visibleKeyPress();
-      } else if (keys.key === '4' && buttons.classList.contains('nrFour')) {
-        visibleKeyPress();
-      } else if (keys.key === '5' && buttons.classList.contains('nrFive')) {
-        visibleKeyPress();
-      } else if (keys.key === '6' && buttons.classList.contains('nrSix')) {
-        visibleKeyPress();
-      } else if (keys.key === '7' && buttons.classList.contains('nrSeven')) {
-        visibleKeyPress();
-      } else if (keys.key === '8' && buttons.classList.contains('nrEight')) {
-        visibleKeyPress();
-      } else if (keys.key === '9' && buttons.classList.contains('nrNine')) {
-        visibleKeyPress();
-      }  else if (keys.key === '0' && buttons.classList.contains('nrZero')) {
-        visibleKeyPress();
-      }  else if (keys.key === '+' && buttons.classList.contains('syPlus')) {
-        visibleKeyPress();
-      }  else if (keys.key === '-' && buttons.classList.contains('syMinus')) {
-        visibleKeyPress();
-      }  else if (keys.key === '*' && buttons.classList.contains('syMultiply')) {
-        visibleKeyPress();
-      }  else if (keys.key === '/' && buttons.classList.contains('syDivide')) {
-        visibleKeyPress();
-      }  else if (keys.key === '.' && buttons.classList.contains('enterKeyCousin')) {
-        visibleKeyPress();
-      } else if (keys.key === 'Enter' && buttons.classList.contains('enterKey')) {
-        visibleKeyPress();
-      } else if (keys.key === 'Delete' && buttons.classList.contains('backspaceDelete')) {
-        visibleKeyPress();
-      } else if (keys.key === 'Backspace' && buttons.classList.contains('clearDisplay')) {
-        visibleKeyPress();
+
+      if (clickedNrOp === '0' && operationDisplay.textContent.length < 1) {        
+        operationDisplay.textContent = `${clickedNrOp}`;
+        operationDisplayCalc = `${clickedNrOp}`;
+      } else if (clickedNrOp === '.' && operationDisplay.textContent.length === 1 && operationDisplay.textContent === '0') {
+        operationDisplay.textContent = `0${clickedNrOp}`;
+        operationDisplayCalc = `0${clickedNrOp}`;
+        commaState = true;
+        return;
+      } else if ((clickedNrOp === '.') &&  (operationDisplay.textContent.endsWith('+') || operationDisplay.textContent.endsWith('-') || operationDisplay.textContent.endsWith('*') || operationDisplay.textContent.endsWith('/'))) {
+        operationDisplay.textContent += `0${clickedNrOp}`;
+        operationDisplayCalc += `0${clickedNrOp}`;
+        commaState = true;
+        return;
+      } else if (clickedNrOp === '.' && commaState === true) {
+        return;
+      } else if ((clickedNrOp === '+' || clickedNrOp === '-' || clickedNrOp === '*' || clickedNrOp === '/') && operatorState === true) {
+        console.log('HeyHeyPeople')
+        return;
+      } else if ((clickedNrOp === '+' || clickedNrOp === '-' || clickedNrOp === '*' || clickedNrOp === '/' || clickedNrOp === 'Enter' || clickedNrOp === 'Delete') && operationDisplay.textContent.length === 1 && operationDisplay.textContent === '0') {
+        console.log('HeyHeyPeople!!!')
+        return;
+      } else {
+        if (operationDisplay.textContent === '0' && clickedNrOp !== 'c') {
+          operationDisplay.textContent = `${clickedNrOp}`;
+          operationDisplayCalc = `${clickedNrOp}`;
+          return;          
+        } else if ((operationDisplay.textContent.endsWith('+') || operationDisplay.textContent.endsWith('-') || operationDisplay.textContent.endsWith('*') || operationDisplay.textContent.endsWith('/')) && clickedNrOp === '0') {
+          return;
+        } else if ((clickedNrOp === '+' || clickedNrOp === '-' || clickedNrOp === '*' || clickedNrOp === '/') && operatorState === false) {
+          if (operationDisplay.textContent.endsWith('.')) {
+            return;
+          };
+          operationDisplay.textContent += `${clickedNrOp}`;
+          operationDisplayCalc += ` ${clickedNrOp} `;
+          operatorState = true;
+          commaState = false;
+          return;
+        } else if (clickedNrOp === '.') {
+          operationDisplay.textContent += `${clickedNrOp}`;
+          operationDisplayCalc += `${clickedNrOp}`;
+          operatorState = true;
+          commaState = true;  
+          return;
+        } else if (clickedNrOp === 'Enter') {          
+
+          operationResults = operationDisplayCalc.split(' ');
+          console.log('display says: ' + operationResults);
+
+          for (let n = 0; n < operationResults.length - 1; n++) {
+            if (operationResults[n] === '/') {
+              if (divideRes > 0) {
+                divideRes = 0;
+                aDiv = 0;
+                bDiv = 0;
+                divideStatus = false;
+              }
+              aDiv = parseFloat(operationResults[n - 1]);
+              bDiv = parseFloat(operationResults[n + 1]);              
+              divideRes = (aDiv / bDiv).toFixed(2);
+              divideStatus = true;  
+              operationResults.splice(`${n - 1}`, 3, `${divideRes}`);
+              n = 0;              
+              console.log('after DIVIDE operation display says: ' + operationResults);
+              console.log('DivideDONE');
+            }
+          }
+
+          console.log('after DIVIDE operations FINISHED display says: ' + operationResults);
+
+          
+          for (let n = 0; n < operationResults.length - 1; n++) {
+            if (operationResults[n] === '*') {
+              if (multiplyRes > 0) {
+                multiplyRes = 0;
+                aMult = 0;
+                bMult = 0;
+                multiplyStatus = false;
+              }
+              aMult = parseFloat(operationResults[n - 1]);
+              bMult = parseFloat(operationResults[n + 1]);
+              multiplyRes = (aMult * bMult).toFixed(2);
+              multiplyStatus = true;  
+              operationResults.splice(`${n - 1}`, 3, `${multiplyRes}`);
+              n = 0;
+              console.log('after MULTIPLY operation display says: ' + operationResults);
+              console.log('MutiplyDONE');
+            }
+          }
+
+          console.log('after MULTIPLY operations FINISHED display says: ' + operationResults);
+
+          for (let n = 0; n < operationResults.length - 1; n++) {
+            if (operationResults[n] === '+') {              
+              aAdd = parseFloat(operationResults[n - 1]);
+              bAdd = parseFloat(operationResults[n + 1]);
+              addRes = (aAdd + bAdd).toFixed(2); 
+              operationResults.splice(`${n - 1}`, 3, `${addRes}`);
+              n = 0;
+              console.log('after ADDITION operation display says: ' + operationResults);
+              console.log('AdditionDONE');
+            } else if (operationResults[n] === '-') {
+              aSub = parseFloat(operationResults[n - 1]);
+              bSub = parseFloat(operationResults[n + 1]);
+              subRes = (aSub - bSub).toFixed(2); 
+              operationResults.splice(`${n - 1}`, 3, `${subRes}`);
+              n = 0;
+              console.log('after SUBTRACTION operation display says: ' + operationResults);
+              console.log('SubtractionDONE');
+            }
+          }
+
+          if (Number.isNaN(bDiv) === true || Number.isNaN(bAdd) === true || Number.isNaN(bAdd) === true || Number.isNaN(bSub) === true) {
+            return;
+          }
+
+          console.log('HeyHeyPeople')
+          sumAll = operationResults;
+          commaState = false;
+          operationDisplay.textContent = '0';
+          console.log('after ALL operations FINISHED display says: ' + operationResults);
+          console.log('divide results is: ' + divideRes);
+          console.log('multiply results is: ' + multiplyRes);
+          console.log('final sum is: ' + sumAll);
+          results.textContent = sumAll;
+        } else if (clickedNrOp === 'Delete') {
+          //del on display
+          let operationDisplayDel = operationDisplay.textContent.split('');
+          if (operationDisplayDel.length <= 1) {
+            operationDisplayDel.splice(`${operationDisplayDel.length - 1}`, 1, '0');
+          } else if (operationDisplayDel[operationDisplayDel.length - 1] === '.') {
+            if (operationDisplayDel[operationDisplayDel.length - 2] === '0' && (operationDisplayDel[operationDisplayDel.length - 3] === '+' || operationDisplayDel[operationDisplayDel.length - 3] === '-' || operationDisplayDel[operationDisplayDel.length - 3] === '*' || operationDisplayDel[operationDisplayDel.length - 3] === '/')) {
+              operationDisplayDel.splice(`${operationDisplayDel.length - 2}`, 2);
+            } else if (operationDisplayDel[operationDisplayDel.length - 3] === undefined && operationDisplayDel.length === 2) {
+              operationDisplayDel.splice(`${operationDisplayDel.length - 2}`, 2, '0');
+              console.log('Zero begone!')
+            }
+          } else {
+            operationDisplayDel.splice(`${operationDisplayDel.length - 1}`, 1);
+          };
+          operationDisplay.textContent = operationDisplayDel.join('');
+          console.log(operationDisplayDel);
+
+          //del on real calc var
+          let operationDisplayDel2 = operationDisplayCalc.split('');
+          if (operationDisplayDel2[operationDisplayDel2.length - 1] === ' ') {
+            if (operationDisplayDel2.includes('.') && operationDisplayDel2.lastIndexOf('.') > operationDisplayDel2.length - 7) {
+              console.log('Shif comma state')
+              commaState = true;  
+            }
+            operatorState = false;
+            operationDisplayDel2.splice(`${operationDisplayDel2.length - 3}`, 3);
+            console.log('operator deleted');
+          } else if (operationDisplayDel2[operationDisplayDel2.length - 1] === '.' && commaState === true) {
+            if (operationDisplayDel2[operationDisplayDel2.length - 2] === '0' && (operationDisplayDel2[operationDisplayDel2.length - 4] === '+' || operationDisplayDel2[operationDisplayDel2.length - 4] === '-' || operationDisplayDel2[operationDisplayDel2.length - 4] === '*' || operationDisplayDel2[operationDisplayDel2.length - 4] === '/' || operationDisplayDel2[operationDisplayDel2.length - 3] === undefined)) {
+              if (operationDisplayDel2.length <= 2) {
+                operationDisplayDel2.splice(`${operationDisplayDel2.length - 2}`, 2, '0');
+                commaState = false;
+                return;
+              }
+              operationDisplayDel2.splice(`${operationDisplayDel2.length - 2}`, 2);
+              console.log('Zero point deleted')
+              commaState = false;
+            } else {
+              operationDisplayDel2.splice(`${operationDisplayDel2.length - 1}`, 1);
+              commaState = false;
+            }
+          } else if (operationDisplayDel2.length < 1) {
+            operationDisplayDel2.splice(`${operationDisplayDel2.length - 1}`, 1, '0');
+          } else if (operationDisplayDel2.length > 1) {            
+            operationDisplayDel2.splice(`${operationDisplayDel2.length - 1}`, 1);
+          }
+          console.log(operationDisplayDel2);
+          operationDisplayCalc = operationDisplayDel2.join('');
+        } else if (clickedNrOp === 'c') {       
+          operationDisplay.textContent = '0';
+          operationDisplayCalc = '0';
+          results.textContent = '0';
+          console.log('I did C!')
+        } else {          
+          operationDisplay.textContent += `${clickedNrOp}`;
+          operationDisplayCalc += `${clickedNrOp}`;
+          operatorState = false;
+        };
       };
+
     };
   });
 });
@@ -672,12 +1010,21 @@ window.document.addEventListener('keydown', (e) => {
 *4 make on click effect (da izgleda kao da si udubio dugme i mogao bi dodati da bude iz outseta u inset!)
 *5 polish music player logic (ima novih sfx i onda ne hvata muziku)
 //* SECOND SET OF DOs
-1 calculator logic
+*1 calculator logic
   *1.1 clicking digits makes real input
-  1.2 operators functional
-  1.3 display result
-2 keyboard supports
+  *1.2 operators functional
+  *1.3 display result
+*2 keyboard supports
   *2.1 make keys clickalble
-  2.2 make keys give real input
+  *2.2 make keys give real input
+//*THIRD SET OF DOs
+1 make tooltips
+2 thichen animation borders?
+3 favicon!
+*4 nula se može dodati nakon operatora! aboliraj! (465 linija koda, zašto opet imam pravilo za 0? ili obrisati ili ovdje riješiti to pitanje! TO PRAVILO SI STAVIO JER KADA DA KADA SE STISNE BILO KOJA BROJKA A NULA JE NA EKRANU DA SE ONA ZAMJENI SA BROJKOM ILI OPERATOROM ILI TOČKOM)
+ * 4.1 dodaj pravilo da obriše poslije točke i nulu!
+ * 4.2 riješen i dodatni problem brisanja zadnje nule i točke
+*5 kopiraj 428 liniju za efekt klika na buttonu na 603 za sve ostale button
+*6 Ubrzaj nestajanje kalkulaora radi boljeg efekta
 */
 

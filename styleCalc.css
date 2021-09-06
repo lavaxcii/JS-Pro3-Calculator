@@ -9,7 +9,7 @@ body {
   background-attachment: fixed;
   background-position: 50% 0%;
   margin: 0;
-  transition: 1s ease;
+  transition: 0.5s ease;
 }
 
 .containerDiv {
@@ -22,7 +22,7 @@ body {
   background-image: linear-gradient(100deg, #555555, rgb(0, 0, 0));
   border: 0;
   padding: 0;
-  transition: 1s ease;
+  transition: 0.5s ease;
 }
 
 .animationBody {
@@ -38,7 +38,7 @@ body {
   /*
   wow! changing transition time breaks downsize and upsize feature!!! oO
   */
-  transition: 1s ease;
+  transition: 0.5s ease;
 }
 
 .upperLeftBorder,
@@ -80,7 +80,7 @@ body {
   opacity: 100%;
   position: absolute;
   margin: 0;
-  transition: 1s ease;
+  transition: 0.5s ease;
 }
 
 .display {
@@ -91,7 +91,7 @@ body {
   align-content: stretch;
   grid-template-columns: repeat(1, 1fr);
   margin: 0;
-  transition: 2s ease;
+  transition: 0.5s ease;
   font-family: 'Press Start 2P';
 }
 
@@ -123,7 +123,7 @@ body {
 p {
   text-align: end;
   background-color: inherit;
-  transition: 1s ease;
+  transition: 0.5s ease;
 }
 
 #pResult {
@@ -149,7 +149,7 @@ p {
   height: 220px;
   width: 410px;
   margin: 0;
-  transition: 1s ease;
+  transition: 0.5s ease;
 }
 
 .enterResult {
@@ -267,6 +267,52 @@ button {
   transition: 1s ease;
 }
 
+.tooltiptext1 {
+  visibility: hidden;
+  width: 55px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  border: 2px outset yellow;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.powerUpCalc2:hover .tooltiptext1,
+.upszC:hover .tooltiptext1, 
+.dwnszC:hover .tooltiptext1, 
+.rndColorOutline:hover .tooltiptext1, 
+.pageBackgroundToggl:hover .tooltiptext1, 
+.fontChange:hover .tooltiptext1, 
+.dissCalc:hover .tooltiptext1,
+.nC:hover .tooltiptext1 {
+  visibility: visible;
+  left: -115%; 
+  opacity: 1;
+  transition-delay: 1.5s;
+}
+
+.powerUpCalc2 .tooltiptext1::after,
+.upszC .tooltiptext1::after, 
+.dwnszC .tooltiptext1::after, 
+.rndColorOutline .tooltiptext1::after, 
+.pageBackgroundToggl .tooltiptext1::after, 
+.fontChange .tooltiptext1::after, 
+.dissCalc .tooltiptext1::after,
+.nC .tooltiptext1::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-top: -10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent transparent yellow;
+}
+
 .userOptions2 {
   display: grid;
   justify-content: center;
@@ -346,4 +392,43 @@ button {
 .fa-caret-right,
 .fa-caret-left {
   font-size: 2.5rem;
+}
+
+.tooltiptext2 {
+  visibility: hidden;
+  width: 55px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  border: 2px outset yellow;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.previous:hover .tooltiptext2,
+.playStop:hover .tooltiptext2, 
+.next:hover .tooltiptext2, 
+.random:hover .tooltiptext2 {
+  visibility: visible;
+  top: 120%;
+  left: 2%; 
+  opacity: 1;
+  transition-delay: 1.5s;
+}
+
+.previous .tooltiptext2::after,
+.playStop .tooltiptext2::after, 
+.next .tooltiptext2::after, 
+.random .tooltiptext2::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%; 
+  left: 50%;
+  margin-left: -10px;
+  border-width: 10px;
+  border-style: outset;
+  border-color: transparent transparent yellow transparent;
 }
