@@ -107,6 +107,7 @@ function upsizeCalc() {
       document.querySelectorAll('button').forEach((button) => {
         if (button.classList.contains('digitsOnly')) {
           button.style.fontSize = '1.8rem';
+          button.style.paddingTop = '8px';
         };
       });
     };
@@ -131,7 +132,6 @@ document.querySelector('.upszC').addEventListener('click', upsizeCalc);
 
 // downsize calc
 function downsizeCalc() {
-
   const aBody = document.querySelector('.animationBody');
   const cBody = document.querySelector('.calculatorBody');
   const dBody = document.querySelector('.digits');
@@ -156,6 +156,7 @@ function downsizeCalc() {
     document.querySelectorAll('button').forEach((button) => {
       if (button.classList.contains('digitsOnly')) {
         button.style.fontSize = '1.4rem';
+        button.style.paddingTop = '0px';
       };
     });
   };
@@ -999,32 +1000,3 @@ window.addEventListener('keydown', (keys) => {
 window.document.addEventListener('keydown', (e) => {
   console.log(e);
 });
-
-/*
-//* FIRST SET OF DOs
-0 intro split screen?
-*1 icons for user options
-*2 icons for music player
-*3 make buttons round and cozy for uo and mp
-  *3.1 add color differentiation static, and when clicked
-*4 make on click effect (da izgleda kao da si udubio dugme i mogao bi dodati da bude iz outseta u inset!)
-*5 polish music player logic (ima novih sfx i onda ne hvata muziku)
-//* SECOND SET OF DOs
-*1 calculator logic
-  *1.1 clicking digits makes real input
-  *1.2 operators functional
-  *1.3 display result
-*2 keyboard supports
-  *2.1 make keys clickalble
-  *2.2 make keys give real input
-//*THIRD SET OF DOs
-1 make tooltips
-2 thichen animation borders?
-3 favicon!
-*4 nula se može dodati nakon operatora! aboliraj! (465 linija koda, zašto opet imam pravilo za 0? ili obrisati ili ovdje riješiti to pitanje! TO PRAVILO SI STAVIO JER KADA DA KADA SE STISNE BILO KOJA BROJKA A NULA JE NA EKRANU DA SE ONA ZAMJENI SA BROJKOM ILI OPERATOROM ILI TOČKOM)
- * 4.1 dodaj pravilo da obriše poslije točke i nulu!
- * 4.2 riješen i dodatni problem brisanja zadnje nule i točke
-*5 kopiraj 428 liniju za efekt klika na buttonu na 603 za sve ostale button
-*6 Ubrzaj nestajanje kalkulaora radi boljeg efekta
-*/
-
