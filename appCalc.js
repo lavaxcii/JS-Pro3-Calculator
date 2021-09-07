@@ -863,7 +863,11 @@ window.addEventListener('keydown', (keys) => {
           operatorState = true;
           commaState = true;  
           return;
-        } else if (clickedNrOp === 'Enter') {          
+        } else if (clickedNrOp === 'Enter') {   
+          
+          if (operationDisplayCalc.endsWith('.')) {
+            return;
+          };
 
           operationResults = operationDisplayCalc.split(' ');
           console.log('display says: ' + operationResults);
