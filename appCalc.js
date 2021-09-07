@@ -641,7 +641,11 @@ document.querySelectorAll('button').forEach((buttons) => {
           operatorState = true;
           commaState = true;  
           return;
-        } else if (clickedNrOp === '=') {          
+        } else if (clickedNrOp === '=') { 
+
+          if (operationDisplayCalc.endsWith('.')) {
+            return;
+          };
 
           operationResults = operationDisplayCalc.split(' ');
           console.log('display says: ' + operationResults);
