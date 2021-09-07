@@ -297,7 +297,7 @@ kbd {
 .dissCalc:hover .tooltiptext1,
 .nC:hover .tooltiptext1 {
   visibility: visible;
-  left: -115%; 
+  left: -135%; 
   opacity: 1;
   transition-delay: 1.5s;
 }
