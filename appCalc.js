@@ -24,7 +24,7 @@ function boom() {
     return;
   };
   exploCrumble.play();
- scatterButtons();
+  scatterButtons();
   const disObj = disintegrate.getDisObj(aBody);
   disintegrate.createSimultaneousParticles(disObj);
   const disObj2 = disintegrate.getDisObj(cBody);
@@ -270,7 +270,9 @@ function powerOnOff() {
         aBody.classList.remove('powerOnC');
         aBody.style.boxShadow = 'none';
         result.style.backgroundImage = 'linear-gradient(100deg, rgb(0, 0, 0), #000000)';
+        results.style.textShadow = 'none';
         digitDisplay.style.backgroundImage = 'linear-gradient(100deg, rgb(0, 0, 0), #000000)'; 
+        digitDisplay.style.textShadow = 'none';
       }, 1200)
   } else {
     if (aBody.style.opacity === '0') {
@@ -300,8 +302,10 @@ function powerOnOff() {
       setTimeout(() => {
         aBody.classList.add('powerOnC');
         aBody.style.boxShadow = '0px 0px 80px 20px yellow';
-        result.style.backgroundImage = 'linear-gradient(100deg, rgb(175, 175, 175), #ffffff)';
-        digitDisplay.style.backgroundImage = 'linear-gradient(100deg, rgb(175, 175, 175), #ffffff)';
+        result.style.backgroundImage = 'linear-gradient(100deg, rgb(81, 81, 81), rgb(166, 255, 184))';
+        results.style.textShadow = '1px 1px 2px rgb(81, 0, 255)';
+        digitDisplay.style.backgroundImage = 'linear-gradient(100deg, rgb(81, 81, 81), rgb(166, 255, 184))';
+        digitDisplay.style.textShadow = '1px 1px 2px rgb(81, 0, 255)';
         powerUpVoice.play();
       }, 1200)
       setTimeout(() => {
@@ -929,8 +933,9 @@ window.addEventListener('keydown', (keys) => {
 
           console.log('HeyHeyPeople')
           sumAll = operationResults;
-          commaState = false;
-          operationDisplay.textContent = '0';
+          commaState = true;
+          operationDisplay.textContent = `${sumAll}`;
+          operationDisplayCalc = `${sumAll}`;
           console.log('after ALL operations FINISHED display says: ' + operationResults);
           console.log('divide results is: ' + divideRes);
           console.log('multiply results is: ' + multiplyRes);
@@ -947,6 +952,8 @@ window.addEventListener('keydown', (keys) => {
             } else if (operationDisplayDel[operationDisplayDel.length - 3] === undefined && operationDisplayDel.length === 2) {
               operationDisplayDel.splice(`${operationDisplayDel.length - 2}`, 2, '0');
               console.log('Zero begone!')
+            } else {
+              operationDisplayDel.splice(`${operationDisplayDel.length - 1}`, 1);
             }
           } else {
             operationDisplayDel.splice(`${operationDisplayDel.length - 1}`, 1);
@@ -996,7 +1003,6 @@ window.addEventListener('keydown', (keys) => {
           operatorState = false;
         };
       };
-
     };
   });
 });
